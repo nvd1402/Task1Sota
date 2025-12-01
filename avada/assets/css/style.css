@@ -1,0 +1,414 @@
+/* ================== BASE ================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #111;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ================== CONTAINER ================== */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px; /* cho nội dung không dính sát mép */
+}
+
+/* ================== HEADER / NAVBAR ================== */
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 0;
+}
+
+/* ========== LOGO ========== */
+.logo-icon {
+    height: 50px;
+    display: block;
+}
+
+/* ========== MENU ========== */
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.nav-menu a {
+    font-size: 17px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.25s ease;
+    color: #222222;
+}
+
+/* Màu khi hover */
+.nav-menu a:hover {
+    color: #fbbd2a; /* vàng giống Avada */
+}
+
+/* Cho Home luôn màu vàng (active) */
+.nav-menu li:first-child a {
+    color: #fbbd2a;
+}
+
+/* Mũi tên dropdown */
+.arrow-icon {
+    width: 12px;
+    height: 12px;
+    margin-left: 5px;
+    stroke: #222222;
+    transition: stroke 0.25s ease;
+}
+
+.nav-menu a:hover .arrow-icon {
+    stroke: #fbbd2a;
+}
+
+/* ========== ACTIONS (BUTTON + ICONS) ========== */
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* Nút Enrol Today */
+.btn-cta {
+    background: #ecf9ee;
+    border-radius: 5px;
+    padding: 12px 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #cdefd5;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    cursor: pointer;
+    transition: all .25s ease;
+    min-width: 165px;
+    justify-content: center;
+}
+.btn-text {
+    width: 90px;
+}
+
+/* đổi màu khi hover */
+.btn-cta:hover {
+    background: #f4f2ff;
+    border-color: #e3dfff;
+}
+
+/* ngôi sao xoay */
+.star {
+    display: inline-block;
+    transition: transform .35s ease;
+}
+
+.btn-cta:hover .star {
+    transform: rotate(180deg);
+}
+
+
+
+/* icon ngôi sao nhỏ */
+.star {
+    font-size: 16px;
+}
+
+/* ICON GRID + CART */
+.icon-grid,
+.glyphicon {
+    display: inline-block;
+    margin-left: 18px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #333333;
+    vertical-align: middle;
+}
+
+/* Riêng cart màu xanh */
+.glyphicon-shopping-cart {
+    color: #00a8ff;
+}
+
+/* Hover nhẹ cho icon */
+.icon-grid:hover,
+.glyphicon:hover {
+    opacity: 0.75;
+}
+/* ============ HERO ============ */
+.hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background-image: url("../image/hero-image-large-01.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+/* lớp tối che bên trái để chữ rõ hơn */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.8) 0%,
+            rgba(0, 0, 0, 0.6) 40%,
+            rgba(0, 0, 0, 0.25) 65%,
+            rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 0;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 80px 0; /* để hero thoáng hơn */
+}
+
+.hero-content {
+    max-width: 1260px;
+}
+
+.hero h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+/* nút trong hero */
+.hero-buttons {
+    display: flex;
+    gap: 18px;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+/* nút xanh */
+.hero-btn-primary {
+    background: #19b5ff;
+    border-color: #19b5ff;
+    color: #ffffff;
+}
+
+.hero-btn-primary:hover {
+    background: #11a1e4;
+    border-color: #11a1e4;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* nút viền trắng */
+.hero-btn-ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+}
+
+.hero-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-1px);
+}
+
+/* icon sao trong nút */
+.hero-star {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.35s ease;
+}
+
+.hero-btn:hover .hero-star {
+    transform: rotate(180deg);
+}
+
+/* shape tím */
+.hero-shape {
+    position: absolute;
+    left: -20px;
+    bottom: 30px;
+    width: 60%;
+    max-width: 700px;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.2s ease-out; /* để mượt */
+}
+/* Hero wave divider */
+.hero-wave {
+    position: absolute;
+    bottom: -80px; /* mép sát section dưới */
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: translateY(1px);
+}
+
+.hero-wave svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* mobile */
+@media (max-width: 768px) {
+    .hero {
+        text-align: center;
+    }
+    .hero-content {
+        margin: 0 auto;
+    }
+    .hero-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .hero h1 {
+        font-size: 36px;
+    }
+    .hero-subtitle {
+        font-size: 16px;
+    }
+    .hero-shape {
+        left: -120px;
+        bottom: -80px;
+        width: 120%;
+    }
+}
+/* Thiết lập chung cho phần này */
+.who-we-are {
+    position: relative; /* Quan trọng để căn chỉnh sóng và nội dung */
+    padding: 100px 80px 50px 80px; /* Padding trên/dưới/hai bên */
+    background-color: #f8f8f8; /* Giả định màu nền dưới sóng */
+    font-family: Arial, sans-serif; /* Hoặc font tương tự ảnh */
+}
+
+/* --- Vị trí và Bố cục chính (Content-Wrapper) --- */
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 50px; /* Khoảng cách giữa phần text và phần graphics */
+}
+
+/* --- Phần Nội dung Văn bản (Text Content) --- */
+.text-content {
+    flex: 2; /* Chiếm nhiều không gian hơn */
+    max-width: 650px;
+}
+
+.label-button {
+    background-color: #ffc94a; /* Màu vàng cam */
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.text-content h1 {
+    font-size: 48px;
+    font-weight: 800; /* Rất đậm */
+    line-height: 1.1;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #1a1a1a;
+}
+
+.text-content .highlight {
+    color: #e0e0e0; /* Màu xám nhạt */
+    font-weight: 800;
+}
+
+.text-content p {
+    color: #6a6a6a;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 450px;
+}
+
+/* --- Phần Đồ họa/Avatar (Graphics Content) --- */
+.graphics-content {
+    flex: 1; /* Chiếm ít không gian hơn */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px; /* Đẩy xuống một chút so với Text */
+}
+
+
+.join-text {
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-bottom: 15px;
+}
+
+/* --- Đường lượn sóng màu hồng --- */
+.squiggle-line {
+    width: 60px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* --- Sóng (Tùy chọn) --- */
+.wave-container {
+    position: absolute;
+    top: -1px; /* Đẩy lên 1px để tránh khe hở */
+    left: 0;
+    width: 100%;
+    height: 250px; /* Điều chỉnh chiều cao của vùng sóng */
+    overflow: hidden;
+}
+
+.wave {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
