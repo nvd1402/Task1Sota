@@ -6,69 +6,87 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Avada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
 </head>
 <body>
+<!-- ==================== HEADER - PHẦN ĐẦU TRANG ==================== -->
 <header class="site-header">
-
+    <!-- Container chứa toàn bộ nội dung header -->
     <div class="navbar container">
 
-        <!-- LOGO -->
+        <!-- ========== PHẦN 1: LOGO VÀ TÊN TRƯỜNG (BÊN TRÁI) ========== -->
         <div class="logo">
-            <img class="logo-icon" src="assets/image/avada-online-school-logo-light-200x54.png">
+            <img class="logo-icon" src="assets/image/avada-online-school-logo-light-200x54.png"
+                 alt="AVADA Online School Logo">
         </div>
 
-        <!-- MENU -->
+        <!-- ========== PHẦN 2: MENU ĐIỀU HƯỚNG (Ở GIỮA) ========== -->
         <nav class="nav-menu">
-            <ul>
-                <li>
-                    <a href="#">
+            <ul class="nav-list">
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         Home
-                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         Academics
-                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </a>
                 </li>
 
-                <li><a href="#">Events</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Events</a>
+                </li>
 
-                <li>
-                    <a href="#">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         Info
-                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
+                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
                         </svg>
                     </a>
                 </li>
 
-                <li><a href="#">News</a></li>
-                <li><a href="#">Contact</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">News</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
             </ul>
         </nav>
 
-
-        <!-- ACTIONS -->
         <div class="header-actions">
 
             <a href="#" class="btn-cta" id="ctaBtn">
-                <span class="btn-text">Enrol Today</span>
-                <span class="star">✦</span>
+                <span class="btn-text" data-default="Enrol Today" data-hover="Apply Now">Enrol Today</span>
+                <span class="star-icon">+</span>
             </a>
 
-
-            <!-- GRID ICON -->
-            <svg class="icon-grid" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#333" viewBox="0 0 24 24">
+            <svg class="icon-grid" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#333"
+                 viewBox="0 0 24 24">
                 <circle cx="5" cy="5" r="2"/>
                 <circle cx="12" cy="5" r="2"/>
                 <circle cx="19" cy="5" r="2"/>
@@ -80,7 +98,6 @@
                 <circle cx="19" cy="19" r="2"/>
             </svg>
 
-            <!-- CART ICON -->
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 
         </div>
@@ -101,20 +118,12 @@
             <div class="hero-buttons">
                 <a href="#about" class="hero-btn hero-btn-primary">
                     Our School
-                    <svg class="hero-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                         fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <polygon points="12 2 15 10 23 10 17 14 19 22 12 17 5 22 7 14 1 10 9 10"/>
-                    </svg>
+                    <span class="plus">+</span>
                 </a>
 
                 <a href="#events" class="hero-btn hero-btn-ghost">
                     View Events
-                    <svg class="hero-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                         fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <polygon points="12 2 15 10 23 10 17 14 19 22 12 17 5 22 7 14 1 10 9 10"/>
-                    </svg>
+                    <span class="plus">+</span>
                 </a>
             </div>
         </div>
@@ -122,56 +131,215 @@
 
     <!-- shape tím phía dưới -->
     <img src="assets/image/shape-01.svg" alt="" class="hero-shape">
+
     <!-- Wave Divider -->
     <div class="hero-wave">
-        <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" class="wave">
-            <path fill="#ffffff" fill-opacity="1"
-                  d="M0,192L48,202.7C96,213,192,235,288,234.7C384,235,480,213,576,213.3C672,213,768,235,864,224C960,213,1056,192,1152,192C1248,192,1344,213,1392,224L1440,235L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path fill="#ffffff" fill-opacity="1"
+                      d="M0,70 L0,50 C240,10 480,90 720,50 C960,10 1200,90 1440,50 L1440,70 Z">
+                </path>
+            </svg>
+        </div>
     </div>
 </section>
 
 
 <section class="who-we-are">
     <div class="content-wrapper">
-        <div class="text-content">
+
+        <div class="label-column">
             <button class="label-button">WHO WE ARE</button>
-            <h1>
-                A Portal to a life-changing
-                <span class="highlight">digital learning</span>
-                experience
+        </div>
+
+        <div class="text-column">
+            <h1 class="fusion-title-heading who-title">
+                A Portal to a life-changing<br>
+                digital learning experience
             </h1>
-            <p>
-                Endy congue acide maec enas integer. Suscipit nunc viverra dui sollica tudin
-                egestas blandit lectus vitae diam. Est integer utn nulla gravida quis kents
+
+            <p class="reveal-paragraph">
+                Endy congue acide maec enas integer. Suscipit nunc viverra dui sollica tudin<br>
+                egestas blandit lectus vitae diam. Est integer utn nulla gravida quis kents<br>
                 ornare porttitor eget proin tempore nibhs.
             </p>
         </div>
 
-        <div class="graphics-content">
+
+        <div class="graphics-column">
+            <!-- Bạn thay ảnh thật của bạn vào đây -->
             <div class="student-avatars">
-                <img src="assets/image/students-numbers-400x131.png" alt="" class="">
+                <img src="assets/image/students-numbers-400x131.png" alt="Student Avatars">
             </div>
-            <p class="join-text">Joined by 25k+ students & growing</p>
+            <p class="join-text">Joined by 25k+ students &amp; growing</p>
             <div class="squiggle-line">
-                <img src="assets/image/shape-02.svg" alt="" class="">
-            </div> </div>
+                <img src="assets/image/shape-02.svg" alt="Squiggle Shape">
+            </div>
+        </div>
+
     </div>
 </section>
 
 <section class="programs">
-    <p class="hero-subtitle">
-        We offer interactive classes & flexible learning<br>
-        experience for students of all ages
-    </p>
+    <div class="programs-wrapper">
+
+        <!-- Card 1 -->
+        <article class="program-card accent-purple">
+            <div class="program-icon">
+                <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <h3 class="program-title">World-class education</h3>
+            <p class="program-text">
+                Turpis nullas dui atni pellent esque sit. Odioy ipsum tortor ornare dictum sed.
+            </p>
+            <span class="program-index">01</span>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="program-card accent-purple">
+            <div class="program-icon">
+                <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <h3 class="program-title">Expert teachers</h3>
+            <p class="program-text">
+                Turpis nullas dui atni pellent esque sit. Odioy ipsum tortor ornare dictum sed.
+            </p>
+            <span class="program-index">02</span>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="program-card accent-purple">
+            <div class="program-icon">
+                <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <h3 class="program-title">Flexible live classes</h3>
+            <p class="program-text">
+                Turpis nullas dui atni pellent esque sit. Odioy ipsum tortor ornare dictum sed.
+            </p>
+            <span class="program-index">03</span>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="program-card accent-purple">
+            <div class="program-icon">
+                <i class="fa-solid fa-circle-play"></i>
+            </div>
+            <h3 class="program-title">Free certification</h3>
+            <p class="program-text">
+                Turpis nullas dui atni pellent esque sit. Odioy ipsum tortor ornare dictum sed.
+            </p>
+            <span class="program-index">04</span>
+        </article>
+
+    </div>
+</section>
+<section class="school-programs">
+
+    <!-- HÀNG 1 -->
+    <div class="row">
+
+        <!-- BANNER TRÁI -->
+        <div class="program-banner">
+            <img src="assets/image/abstract-bg-3.png" alt="" class="bg-img">
+
+            <div class="banner-content">
+                <img src="assets/image/shape-03.svg" class="banner-logo" alt="">
+
+                <!-- Vòng chữ chạy quanh icon -->
+                <svg class="circle-text" viewBox="0 0 300 300">
+                    <defs>
+                        <path id="circlePath"
+                              d="M150,150
+         m -92, 0
+         a 92,92 0 1,1 184,0
+         a 92,92 0 1,1 -184,0" />
+
+                    </defs>
+
+                    <text>
+                        <textPath href="#circlePath" startOffset="0%" style="font-size: 18px;">
+                            <animate attributeName="startOffset"
+                                     dur="8s"
+                                     repeatCount="indefinite"
+                                     values="-100%;100%;" />
+                            AVADA ONLINE SCHOOL
+                        </textPath>
+                    </text>
+                </svg>
+
+                <h2 class="banner-title js-gsap-title">
+                    <span class="line">School</span>
+                    <span class="line">Academy</span>
+                </h2>
+
+
+
+
+            </div>
+        </div>
+
+
+        <!-- ELEMENTARY PROGRAM -->
+        <div class="program-box light-green">
+            <h2 class="program-heading">Elementary School Programs</h2>
+            <p class="program-grade">For Grades K-5</p>
+
+            <p class="program-desc">
+                Sollicit eudin egestas blandit lectus vitae diam. Integer
+                tempore suscipit nunc gravid kent esque.
+            </p>
+
+            <a href="#" class="learn-more">Learn More →</a>
+
+            <div class="program-img">
+                <img src="assets/image/elementary-programs-600x473.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- HÀNG 2 -->
+    <div class="row">
+
+        <!-- MIDDLE SCHOOL -->
+        <div class="program-box light-blue">
+            <h2 class="program-heading">Middle School Programs</h2>
+            <p class="program-grade">For Grades 6-8</p>
+
+            <p class="program-desc">
+                Sollicit eudin egestas blandit lectus vitae diam. Integer
+                tempore suscipit nunc gravid kent esque.
+            </p>
+
+            <a href="#" class="learn-more">Learn More →</a>
+
+            <div class="program-img">
+                <img src="assets/image/middle-school-programs-400x375.png" alt="">
+            </div>
+        </div>
+
+        <!-- HIGH SCHOOL -->
+        <div class="program-box light-purple">
+            <h2 class="program-heading">High School Programs</h2>
+            <p class="program-grade">For Grades 9-12</p>
+
+            <p class="program-desc">
+                Sollicit eudin egestas blandit lectus vitae diam. Integer
+                tempore suscipit nunc gravid kent esque.
+            </p>
+
+            <a href="#" class="learn-more">Learn More →</a>
+
+            <div class="program-img">
+                <img src="assets/image/high-school-programs-600x434.png" alt="">
+            </div>
+        </div>
+
+    </div>
+
 </section>
 
+
 <section class="events">
-    <p class="hero-subtitle">
-        We offer interactive classes & flexible learning<br>
-        experience for students of all ages
-    </p>
 </section>
 
 <section class="experience"></section>
@@ -187,4 +355,8 @@
 <footer></footer>
 </body>
 <script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/split-type"></script>
+
 </html>
