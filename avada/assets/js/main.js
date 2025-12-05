@@ -78,19 +78,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+// Cuon chu shool academy
 document.addEventListener("DOMContentLoaded", function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const title = document.querySelector(".js-gsap-title");
-    const lines = title.querySelectorAll(".line");
+    if (!title) return;
 
-    let chars = [];
+    const lineNodes = title.querySelectorAll(".line");
 
-    // Tách từng dòng thành ký tự
-    lines.forEach(line => {
+    // Mỗi phần tử = mảng ký tự của một dòng
+    const linesChars = [];
+
+    // Tách từng dòng thành <span class="char">
+    lineNodes.forEach(line => {
         const text = line.textContent;
         line.innerHTML = ""; // clear
 
+        const chars = [];
         text.split("").forEach(ch => {
             const span = document.createElement("span");
             span.classList.add("char");
@@ -98,25 +103,161 @@ document.addEventListener("DOMContentLoaded", function () {
             line.appendChild(span);
             chars.push(span);
         });
+
+        linesChars.push(chars);
     });
 
-    // Tổng số ký tự của cả 2 dòng
-    const total = chars.length;
-
-    // ScrollTrigger chạy cho toàn bộ heading
     ScrollTrigger.create({
         trigger: title,
         start: "top 75%",
-        end: "top 20%",
+        end:   "top 20%",
         scrub: true,
         onUpdate(self) {
-            const progress = self.progress;
-            const activeCount = Math.floor(progress * total);
+            const progress = self.progress;  // 0 → 1
 
-            chars.forEach((ch, i) => {
-                if (i < activeCount) ch.classList.add("is-active");
-                else ch.classList.remove("is-active");
+            // Với MỖI DÒNG: activeCount = progress * số ký tự của DÒNG ĐÓ
+            linesChars.forEach(chars => {
+                const total = chars.length;
+                const activeCount = Math.floor(progress * total);
+
+                chars.forEach((ch, i) => {
+                    if (i < activeCount) ch.classList.add("is-active");
+                    else ch.classList.remove("is-active");
+                });
             });
         }
     });
+});
+// Hiệu ứng blur và thu nhỏ khi card bị đè lên
+window.addEventListener('scroll', () => {
+    const cards = document.querySelectorAll('.event-card');
+    const stickyTop = 80; // Giống với CSS top value
+    const container = document.querySelector('.events-cards-container');
+    const containerRect = container.getBoundingClientRect();
+
+    cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardHeight = rect.height;
+        const cardTop = rect.top;
+
+        // Reset hiệu ứng mặc định
+        let blurAmount = 0;
+        let opacity = 1;
+        let scale = 1;
+
+        // Kiểm tra card tiếp theo
+        const nextCard = cards[index + 1];
+        if (nextCard) {
+            const nextRect = nextCard.getBoundingClientRect();
+            const nextCardTop = nextRect.top;
+
+            // Tính toán vị trí nửa card
+            const halfCardPosition = cardTop + (cardHeight / 2);
+
+            // Nếu card tiếp theo đã đè qua nửa card hiện tại
+            if (nextCardTop <= halfCardPosition) {
+                // Tính khoảng cách từ vị trí hiện tại đến khi đè hoàn toàn
+                const overlapDistance = halfCardPosition - nextCardTop;
+                const maxOverlap = cardHeight / 2; // Khoảng cách tối đa để đè hoàn toàn
+                const progress = Math.min(1, overlapDistance / maxOverlap);
+
+                // Áp dụng hiệu ứng dựa trên progress (0 → 1)
+                blurAmount = progress * 5; // 0 → 12px
+                opacity = 1 - (progress * 0.1); // 1.0 → 0.5
+                scale = 1 - (progress * 0.1); // 1.0 → 0.92
+            }
+        } else {
+            // Card cuối cùng - làm mờ khi cuộn xuống cuối container
+            if (cardTop <= stickyTop) {
+                // Tính khoảng cách còn lại của container
+                const containerBottom = containerRect.bottom;
+                const remainingDistance = containerBottom - (stickyTop + cardHeight);
+
+                // Nếu đang cuộn gần đến cuối container
+                if (remainingDistance < 300) {
+                    const progress = Math.max(0, 1 - (remainingDistance / 300));
+
+                    blurAmount = progress * 5;
+                    scale = 1 - (progress * 0.1);
+                }
+            }
+        }
+
+        // Áp dụng hiệu ứng
+        card.style.filter = `blur(${blurAmount}px)`;
+        card.style.opacity = opacity;
+        card.style.transform = `scale(${scale})`;
+    });
+});
+// Khóa học
+function parseDisplay(text) {
+    const raw = (text || "").trim().toLowerCase();
+    const hasPlus = raw.endsWith("+");
+    const t = hasPlus ? raw.slice(0, -1).trim() : raw;
+
+    // number + optional suffix (k/m)
+    const m = t.match(/^(\d+(?:\.\d+)?)([km])?$/i);
+    if (!m) return null;
+
+    const numStr = m[1];
+    const num = parseFloat(numStr);
+    const suffix = (m[2] || "").toLowerCase();
+    const decimals = (numStr.split(".")[1] || "").length; // giữ số chữ số thập phân như ban đầu
+
+    return { num, suffix, hasPlus, decimals };
+}
+
+function formatDisplay(value, meta) {
+    const n = meta.decimals > 0 ? value.toFixed(meta.decimals) : Math.round(value).toString();
+    return n + (meta.suffix || "") + (meta.hasPlus ? "+" : "");
+}
+
+function animateTo(el, meta, duration = 1200) {
+    const start = 0;
+    const end = meta.num;
+
+    const startTime = performance.now();
+    const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+
+    function tick(now) {
+        const t = Math.min(1, (now - startTime) / duration);
+        const eased = easeOutCubic(t);
+
+        const current = start + (end - start) * eased;
+        el.textContent = formatDisplay(current, meta);
+
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = formatDisplay(end, meta); // đảm bảo “tới đúng”
+    }
+
+    requestAnimationFrame(tick);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const els = document.querySelectorAll(".courses .courses__value");
+    if (!els.length) return;
+
+    // lưu text gốc và set về 0 trước khi chạy
+    els.forEach(el => {
+        if (!el.dataset.finalText) el.dataset.finalText = el.textContent.trim();
+        const meta = parseDisplay(el.dataset.finalText);
+        if (meta) el.textContent = formatDisplay(0, meta);
+    });
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const el = entry.target;
+            if (el.dataset.counted === "1") return;
+            el.dataset.counted = "1";
+
+            const meta = parseDisplay(el.dataset.finalText || el.textContent);
+            if (!meta) return;
+
+            animateTo(el, meta, 1300);
+        });
+    }, { threshold: 0.35 });
+
+    els.forEach(el => io.observe(el));
 });
