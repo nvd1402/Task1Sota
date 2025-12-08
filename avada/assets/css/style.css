@@ -1616,13 +1616,14 @@ a {
     .courses__value{ font-size: 64px; }
     .courses__shape{ width: 210px; height: 210px; }
 }
-/*Lớp học*/
+/* =========================
+   LỚP HỌC - CLASSROOM
+========================= */
 .classroom{
     background:#f5f5f5;
-    padding: 120px 60px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 100px 60px 30px;
+    font-family: Lexend, Arial, Helvetica, sans-serif;
 }
-
 .cr-wrap{
     max-width: 1320px;
     margin: 0 auto;
@@ -1741,7 +1742,6 @@ a {
     color: #ffffff;
     border: 2px solid #ffffff;
     text-decoration: none;
-    box-shadow: 0 14px 35px rgba(4, 195, 233, 0.35);
 }
 
 .cr-viewAll:hover .cr-plus{
@@ -1766,93 +1766,42 @@ a {
     display: block;
 }
 
-/* ====== COURSE CARD (FULL) ====== */
-
-/* Cards wrapper với overflow để có thể scroll */
+/* =========================
+   CAROUSEL WRAPPER (SWIPER)
+========================= */
 .cr-cards-wrapper{
     position: relative;
     overflow: hidden;
     margin-bottom: 40px;
 }
 
-/* grid (nếu bạn cần giống khoảng cách) */
-.cr-grid{
-    display:grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
-    transition: transform 0.5s ease;
-    cursor: grab;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+.cr-swiper{
+    width: 100%;
+    padding-bottom: 60px;
 }
 
-.cr-grid:active,
-.cr-grid.dragging{
-    cursor: grabbing;
+.swiper-wrapper{
+    align-items: stretch;
+}
+.swiper-slide{
+    height: auto;
 }
 
-/* Navigation arrows */
-.cr-nav-arrow{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid #e9e9e9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
-}
 
-.cr-nav-arrow:hover{
-    background: #04c3e9;
-    border-color: #04c3e9;
-    color: #fff;
-    box-shadow: 0 6px 16px rgba(4, 195, 233, 0.3);
-}
-
-.cr-nav-arrow i{
-    font-size: 18px;
-    color: #333;
-    transition: color 0.3s ease;
-}
-
-.cr-nav-arrow:hover i{
-    color: #fff;
-}
-
-.cr-nav-prev{
-    left: -25px;
-}
-
-.cr-nav-next{
-    right: -25px;
-}
-
-/* card wrapper */
+/* =========================
+   CARD
+========================= */
 .cr-card{
     background:#fff;
     border:1px solid #e9e9e9;
     border-radius: 10px;
     overflow:hidden;
-    box-shadow: 0 10px 26px rgba(0,0,0,.06);
-    transition: transform .18s ease, box-shadow .18s ease;
 }
 
-.cr-card:hover{
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0,0,0,.10);
-}
 
-/* media */
+/* =========================
+   MEDIA
+========================= */
 .cr-media{
     position:relative;
     height: 240px;
@@ -1864,43 +1813,35 @@ a {
     width:100%;
     height:100%;
     object-fit:cover;
-    transform: scale(1.02);
-    transition: transform .35s ease;
 }
-
-.cr-card:hover .cr-media img{
-    transform: scale(1.08);
-}
-
-/* tag */
 .cr-tag{
     position:absolute;
-    left:18px;
-    top:18px;
-    background:#b72cff;
+    left:35px;
+    top:35px;
+    background:#b433ff;
     color:#fff;
     font-weight:800;
-    font-size: 12px;
-    padding: 9px 14px;
-    border-radius: 8px;
+    font-size: 10px;
+    padding: 6px;
+    border-radius: 5px;
     letter-spacing: .8px;
     text-transform: uppercase;
 }
 
-/* body */
+/* =========================
+   CARD BODY
+========================= */
 .cr-body{
-    padding: 26px 26px 22px;
+    padding: 30px;
 }
 
 .cr-name{
     margin: 6px 0 12px;
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 22px;
     color:#222;
-    letter-spacing: -0.3px;
+    white-space:nowrap;
 }
 
-/* rating */
 .cr-rating{
     display:flex;
     align-items:center;
@@ -1909,13 +1850,8 @@ a {
 }
 
 .cr-stars{
-    color:#f2b233;
+    color:#fcc943;
     font-size: 14px;
-    letter-spacing: 1px;
-}
-
-.cr-stars--dim{
-    color:#d9d9d9;
 }
 
 .cr-score{
@@ -1923,45 +1859,37 @@ a {
     font-size: 14px;
 }
 
-/* text */
 .cr-text{
     margin: 0 0 18px;
     color:#6a6a6a;
     line-height: 1.75;
     font-size: 15px;
-    min-height: 78px;         /* làm các card đều nhau như mẫu */
+    min-height: 78px;
 }
 
-/* meta: xanh + dấu gạch | */
 .cr-meta{
-    margin-top: 6px;
-    color:#18a7ff;
+    color:#27c4e5;
     font-size: 14px;
-    line-height: 1.65;
     display:flex;
-    flex-wrap: wrap;
     align-items:center;
+
     gap: 10px;
 }
 
 .cr-dot{
     color:#cfcfcf;
-    margin: 0 6px;
 }
 
-/* divider line */
 .cr-line{
     height:1px;
     background:#e8e8e8;
     margin: 18px 0;
 }
 
-/* teacher + price */
 .cr-teacherRow{
     display:flex;
     align-items:center;
     justify-content: space-between;
-    gap: 12px;
 }
 
 .cr-teacher{
@@ -1969,7 +1897,6 @@ a {
     align-items:center;
     gap: 10px;
     color:#7a7a7a;
-    font-size: 15px;
 }
 
 .cr-avatar{
@@ -1977,132 +1904,102 @@ a {
     height: 30px;
     border-radius: 50%;
     background:#ececec;
-    display:inline-flex;
+    display:flex;
     align-items:center;
     justify-content:center;
-    color:#b0b0b0;
-    font-size: 13px;
 }
 
 .cr-price{
-    font-weight: 800;
-    color:#2a44d9;
+    color:#292899;
     font-size: 18px;
 }
 
-/* CTA button */
 .cr-cta{
     margin-top: 16px;
     display:flex;
     align-items:center;
     justify-content:center;
     gap: 10px;
-
     background:#f0efff;
     color:#1e1e1e;
     text-decoration:none;
-
     padding: 16px 18px;
     border-radius: 8px;
-    font-weight: 700;
-
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-}
-
-.cr-cta i{
-    font-size: 14px;
+    transition: 0.25s;
 }
 
 .cr-cta:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(0,0,0,.08);
-    background:#e9e7ff;
+    background:#292899;
+    text-decoration:none;
+    color: white;
 }
 
-/* Dots pagination */
-.cr-dots{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+/* =========================
+   DOTS (SWIPER)
+========================= */
+/* Đẩy dots xuống dưới slider */
+.cr-pagination{
+    position: relative !important;
     margin-top: 40px;
+    text-align: center;
 }
 
-.cr-dots span{
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+/* Swiper container phải cho phép hiển thị bên ngoài */
+.cr-swiper{
+    padding-bottom: 0 !important;
+}
+.cr-pagination .swiper-pagination-bullet{
+    width: 8px;
+    height: 8px;
     background: #e0e0e0;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    opacity: 1;
+    transition: 0.3s;
 }
 
-.cr-dots span.is-active{
+.cr-pagination .swiper-pagination-bullet-active{
     background: #04c3e9;
-    width: 32px;
-    border-radius: 6px;
+    width: 10px;
+    height: 10px;
 }
 
-.cr-dots span:hover{
-    background: #04c3e9;
-    opacity: 0.7;
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 1200px){
-    .cr-grid{ grid-template-columns: repeat(2, 1fr); }
-    .cr-nav-arrow{
-        display: none;
-    }
-}
-
-@media (max-width: 680px){
-    .cr-grid{ grid-template-columns: 1fr; }
-    .cr-media{ height: 220px; }
-    .cr-body{ padding: 22px; }
-    .cr-nav-arrow{
-        display: none;
-    }
-}
-.cr-cards-wrapper{
-    position: relative; /* Đảm bảo floating icon định vị theo container */
-}
-
-/* media wrapper */
-.cr-media {
-    position: relative;
-    overflow: hidden;
-}
-/* Floating icon container */
+/* =========================
+   FLOATING ICON
+========================= */
 .cr-float-nav{
     position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    inset:0;
     pointer-events:none;
     opacity:0;
     transition:opacity .25s ease;
     z-index:30;
 }
 
-/* Floating icon follow mouse */
 .cr-float-icon{
     position:absolute;
-    width:46px;
-    height:46px;
+    width:55px;
+    height:55px;
     transform:translate(-50%, -50%);
     opacity:0;
-    transition:.25s ease;
-    mix-blend-mode:difference;  /* auto đổi màu theo nền */
+    transition:.1s ease;
+    mix-blend-mode:difference;
 }
 
-.cr-cards-wrapper:hover .cr-float-nav{
-    opacity:1;
-}
-
+.cr-cards-wrapper:hover .cr-float-nav,
 .cr-cards-wrapper:hover .cr-float-icon{
     opacity:1;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1200px){
+    .swiper-slide{ width: 340px; }
+}
+
+@media (max-width: 680px){
+    .swiper-slide{ width: 90%; }
+    .cr-media{ height: 220px; }
+    .cr-body{ padding: 22px; }
 }
 
 
@@ -2110,15 +2007,15 @@ a {
 /* ==================== CLASSROOM OF THE FUTURE ==================== */
 .classroom-future{
     background: #ffffff;
-    padding: 100px 0 20px;
+    padding: 10px 0 20px;
     overflow: hidden;
 }
 
 .cf-wrapper{
-    max-width: 1400px;
+    max-width: 1300px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 3fr 6fr 3fr;
+    grid-template-columns: 3.1fr 5.8fr 3.1fr;
     gap: 0;
     align-items: stretch;
 }
@@ -2141,8 +2038,8 @@ a {
     border-radius: 8px;
 }
 
-/* Center Panel */
-.cf-center-panel{
+/* Central Section */
+.cf-center-panel {
     background: #ffffff;
     position: relative;
     display: flex;
@@ -2150,13 +2047,12 @@ a {
     justify-content: center;
     padding: 80px 60px;
     min-height: 600px;
-    max-height: 600px;
 }
 
-.cf-content{
+.cf-content {
     position: relative;
     z-index: 2;
-    max-width: 500px;
+    max-width: 700px;
     width: 100%;
     text-align: center;
 }
@@ -2166,7 +2062,7 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: 550px;
     height: auto;
     z-index: 1;
     opacity: 0.4;
@@ -2179,44 +2075,58 @@ a {
     display: block;
 }
 
-.cf-text-content{
+
+.cf-text-content {
     position: relative;
     z-index: 2;
     text-align: center;
 }
 
-.cf-headline{
+.cf-headline {
     font-size: 14px;
     font-weight: 700;
-    letter-spacing: 2px;
     text-transform: uppercase;
-    color: #1d28b0;
-    margin-bottom: 20px;
+    color: #292899;
+    margin-bottom: 10px;
 }
 
-.cf-title{
-    font-size: 60px;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #2a2a2a;
-    margin: 0 0 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.cf-title {
+    font-size: 85px;
+    font-weight: 600;
+    line-height: 0.8;
+    margin: 0 0 40px;
+    text-align: center;
 }
 
-.cf-title-line{
+.cf-title-line {
     display: block;
+    overflow: visible;
+    margin-bottom: 8px;
 }
 
-.cf-description{
-    font-size: 34px;
-    line-height: 1.3;
+.cf-title-line .char {
+    display: inline-block;
+    color: #d0d0d0;
+    font-size: 0.7em;
+    transform-origin: center center;
+    will-change: transform, color;
+}
+
+.cf-title-line .char.space {
+    width: 1.2em;
+}
+
+
+.cf-description {
+    font-family: Lexend, Arial, Helvetica, sans-serif;
+    font-size: 35px;
+    line-height: 1.2;
     color: #555;
     margin: 0 0 40px;
+    text-align: center;
 }
 
-.cf-cta-btn{
+.cf-cta-btn {
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -2225,30 +2135,25 @@ a {
     color: #ffffff;
     border-radius: 8px;
     text-decoration: none;
-    font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.cf-cta-btn:hover{
+.cf-cta-btn:hover {
     background: #292899;
     color: #ffffff;
     text-decoration: none;
 }
 
-.cf-plus{
+.cf-plus {
     font-size: 20px;
-    line-height: 1;
-    display: inline-block;
     transition: transform 0.3s ease;
-    transform-origin: center;
-    transform: rotate(0deg);
 }
 
-.cf-cta-btn:hover .cf-plus{
-    transform: rotate(360deg);
+.cf-cta-btn:hover .cf-plus {
+    transform: rotate(180deg);
 }
+
 
 /* Right Panel */
 .cf-right-panel{
@@ -2281,7 +2186,7 @@ a {
     
     .cf-center-panel{
         min-height: auto;
-        padding: 60px 40px;
+        padding: 40px 40px;
     }
     
     .cf-title{
@@ -2305,6 +2210,18 @@ a {
     .cf-description{
         font-size: 16px;
     }
+}
+.classroom-future:hover .cf-left-panel img {
+    transform: translateY(-50px);
+}
+
+.classroom-future:hover .cf-right-panel img {
+    transform: translateY(50px);
+}
+
+.cf-left-panel img,
+.cf-right-panel img {
+    transition: transform 0.35s ease;
 }
 
 /* ==================== NEWS SECTION ==================== */

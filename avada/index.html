@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 
 </head>
@@ -635,25 +636,24 @@
 <section class="classroom">
     <div class="cr-wrap">
 
-        <!-- Header -->
+        <!-- HEADER -->
         <div class="cr-head">
             <div class="cr-content-wrapper">
+
                 <div class="cr-label-column">
                     <span class="cr-pill">ACCELERATED LEARNING</span>
                     <div class="cr-wavy-line">
-                        <img src="assets/image/shape-02.svg" alt="" aria-hidden="true">
+                        <img src="assets/image/shape-02.svg" alt="">
                     </div>
                 </div>
 
                 <div class="cr-text-column">
-                    <h2 class="cr-title js-cr-title">
+                    <h2 class="cr-title">
                         <span class="cr-title-bold">Explore Our</span>
                         <span class="cr-title-fade">Courses</span>
                     </h2>
-
                     <p class="cr-desc">
                         Subjects that prepare you for tomorrow: All while connecting with a global network of learners.
-                        Our curriculum evolves with latest trends!
                     </p>
                 </div>
 
@@ -662,299 +662,259 @@
                         View All Courses <span class="cr-plus">+</span>
                     </a>
                 </div>
+
             </div>
         </div>
 
-        <!-- Cards grid (4 dữ liệu mới) -->
+        <!-- CAROUSEL -->
         <div class="cr-cards-wrapper">
 
-            <!-- FLOATING ICON (BAO TOÀN CAROUSEL) -->
+            <div class="swiper cr-swiper">
+                <div class="swiper-wrapper">
+
+                    <!-- 1) Basic English -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/study-humanities-1.jpg" alt="Basic English">
+                            <span class="cr-tag">ELEMENTARY</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">Basic English</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                                <span class="cr-score">4 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Builds foundational skills in reading, writing, speaking &amp; listening.
+                            </p>
+                            <div class="cr-meta">
+                                <span>18 Students</span><span class="cr-dot">|</span>
+                                <span>24 Lessons</span><span class="cr-dot">|</span>
+                                <span>12 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>Arlie Parker</span>
+                                </div>
+                                <div class="cr-price">$16.00</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- 2) Plants & Earth Study -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/earth-life-science-1.jpg" alt="Plants & Earth Study">
+                            <span class="cr-tag">MIDDLE SCHOOL</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">Plants &amp; Earth Study</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                                <span class="cr-score">4 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Introduce the wonders of nature, explore plants &amp; the Earth’s resources.
+                            </p>
+                            <div class="cr-meta">
+                                <span>75 Students</span><span class="cr-dot">|</span>
+                                <span>24 Lessons</span><span class="cr-dot">|</span>
+                                <span>12 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>Sandy Hamlin</span>
+                                </div>
+                                <div class="cr-price">$9.50</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- 3) Computer Science -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/computer-science-1.jpg" alt="Computer Science">
+                            <span class="cr-tag">HIGH SCHOOL</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">Computer Science</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </span>
+                                <span class="cr-score">5 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Teaches the principles of coding, problem-solving &amp; digital systems.
+                            </p>
+                            <div class="cr-meta">
+                                <span>92 Students</span><span class="cr-dot">|</span>
+                                <span>36 Lessons</span><span class="cr-dot">|</span>
+                                <span>18 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>John Smith</span>
+                                </div>
+                                <div class="cr-price">$26.50</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- 4) Arts Exploration -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/arts-exploration-1.jpg" alt="Arts Exploration">
+                            <span class="cr-tag">ELEMENTARY</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">Arts Exploration</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                                <span class="cr-score">4 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Encourages creativity &amp; self-expression through drawing, painting &amp; crafting.
+                            </p>
+                            <div class="cr-meta">
+                                <span>18 Students</span><span class="cr-dot">|</span>
+                                <span>12 Lessons</span><span class="cr-dot">|</span>
+                                <span>6 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>Marie Elliott</span>
+                                </div>
+                                <div class="cr-price">$7.50</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- 5) Social Studies -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/social-studies-1.jpg" alt="Social Studies">
+                            <span class="cr-tag">ELEMENTARY</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">Social Studies</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </span>
+                                <span class="cr-score">4 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Helping students understand history, geography &amp; politics around the world.
+                            </p>
+                            <div class="cr-meta">
+                                <span>50 Students</span><span class="cr-dot">|</span>
+                                <span>24 Lessons</span><span class="cr-dot">|</span>
+                                <span>18 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>Arlie Parker</span>
+                                </div>
+                                <div class="cr-price">$8.00</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <!-- 6) General Physics -->
+                    <article class="cr-card swiper-slide">
+                        <div class="cr-media">
+                            <img src="assets/image/general-physics-1.jpg" alt="General Physics">
+                            <span class="cr-tag">MIDDLE SCHOOL</span>
+                        </div>
+                        <div class="cr-body">
+                            <h3 class="cr-name">General Physics</h3>
+                            <div class="cr-rating">
+                <span class="cr-stars">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </span>
+                                <span class="cr-score">5 / 5</span>
+                            </div>
+                            <p class="cr-text">
+                                Examine the fundamental principles of nature like motion, energy &amp; force.
+                            </p>
+                            <div class="cr-meta">
+                                <span>92 Students</span><span class="cr-dot">|</span>
+                                <span>36 Lessons</span><span class="cr-dot">|</span>
+                                <span>12 Months</span>
+                            </div>
+                            <div class="cr-line"></div>
+                            <div class="cr-teacherRow">
+                                <div class="cr-teacher">
+                                    <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
+                                    <span>Sandy Hamlin</span>
+                                </div>
+                                <div class="cr-price">$28.00</div>
+                            </div>
+                            <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- DOTS -->
+                <div class="swiper-pagination cr-pagination"></div>
+            </div>
+
+            <!-- FLOAT ICON -->
             <div class="cr-float-nav">
                 <svg class="cr-float-icon" viewBox="0 0 24 24">
-                    <path d="M18.54,15.66a.79.79,0,0,1-.53-.22.75.75,0,0,1,0-1.06L20.42,12,18.07,9.62a.75.75,0,0,1,1.06-1.06L22,11.44a.75.75,0,0,1,0,1.06l-2.94,2.94A.77.77,0,0,1,18.54,15.66Z" />
-                    <path d="M5.4,15.66a.75.75,0,0,1-.53-.22L2,12.56A.75.75,0,0,1,2,11.5L4.93,8.56A.75.75,0,0,1,6,9.62L3.58,12l2.35,2.35a.75.75,0,0,1,0,1.06A.79.79,0,0,1,5.4,15.66Z" />
-                    <path d="M12,15.66A3.66,3.66,0,1,1,15.66,12,3.66,3.66,0,0,1,12,15.66Zm0-5.82A2.16,2.16,0,1,0,14.16,12,2.16,2.16,0,0,0,12,9.84Z" />
+                    <path d="M18.54,15.66a.79.79,0,0,1-.53-.22.75.75,0,0,1,0-1.06L20.42,12,18.07,9.62a.75.75,0,0,1,1.06-1.06L22,11.44a.75.75,0,0,1,0,1.06l-2.94,2.94A.77.77,0,0,1,18.54,15.66Z"/>
+                    <path d="M5.4,15.66a.75.75,0,0,1-.53-.22L2,12.56A.75.75,0,0,1,2,11.5L4.93,8.56A.75.75,0,0,1,6,9.62L3.58,12l2.35,2.35a.75.75,0,0,1,0,1.06A.79.79,0,0,1,5.4,15.66Z"/>
+                    <path d="M12,15.66A3.66,3.66,0,1,1,15.66,12,3.66,3.66,0,0,1,12,15.66Zm0-5.82A2.16,2.16,0,1,0,14.16,12,2.16,2.16,0,0,0,12,9.84Z"/>
                 </svg>
             </div>
 
-            <div class="cr-grid">
-
-                <!-- 1) Basic English -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/study-humanities-1.jpg" alt="Basic English">
-                        <span class="cr-tag">ELEMENTARY</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Basic English</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            <span class="cr-score">4 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Builds foundational skills in reading, writing, speaking &amp; listening.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>18 Students</span><span class="cr-dot">|</span>
-                            <span>24 Lessons</span><span class="cr-dot">|</span>
-                            <span>12 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>Arlie Parker</span>
-                            </div>
-                            <div class="cr-price">$16.00</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- 2) Plants & Earth Study -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/earth-life-science-1.jpg" alt="Plants & Earth Study">
-                        <span class="cr-tag">MIDDLE SCHOOL</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Plants &amp; Earth Study</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            <span class="cr-score">4 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Introduce the wonders of nature, explore plants &amp; the Earth’s resources.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>75 Students</span><span class="cr-dot">|</span>
-                            <span>24 Lessons</span><span class="cr-dot">|</span>
-                            <span>12 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>Sandy Hamlin</span>
-                            </div>
-                            <div class="cr-price">$9.50</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- 3) Computer Science -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/computer-science-1.jpg" alt="Computer Science">
-                        <span class="cr-tag">HIGH SCHOOL</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Computer Science</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </span>
-                            <span class="cr-score">5 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Teaches the principles of coding, problem-solving &amp; digital systems.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>92 Students</span><span class="cr-dot">|</span>
-                            <span>36 Lessons</span><span class="cr-dot">|</span>
-                            <span>18 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>John Smith</span>
-                            </div>
-                            <div class="cr-price">$26.50</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- 4) Arts Exploration -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/arts-exploration-1.jpg" alt="Arts Exploration">
-                        <span class="cr-tag">ELEMENTARY</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Arts Exploration</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            <span class="cr-score">4 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Encourages creativity &amp; self-expression through drawing, painting &amp; crafting.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>18 Students</span><span class="cr-dot">|</span>
-                            <span>12 Lessons</span><span class="cr-dot">|</span>
-                            <span>6 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>Marie Elliott</span>
-                            </div>
-                            <div class="cr-price">$7.50</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Card 5 -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/social-studies-1.jpg" alt="Arts Exploration">
-                        <span class="cr-tag">ELEMENTARY</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Arts Exploration</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            <span class="cr-score">4 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Encourages creativity &amp; self-expression through drawing, painting &amp; crafting.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>18 Students</span><span class="cr-dot">|</span>
-                            <span>12 Lessons</span><span class="cr-dot">|</span>
-                            <span>6 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>Marie Elliott</span>
-                            </div>
-                            <div class="cr-price">$7.50</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-                <!-- Card 6 -->
-                <article class="cr-card">
-                    <div class="cr-media">
-                        <img src="assets/image/general-physics-1.jpg" alt="Arts Exploration">
-                        <span class="cr-tag">ELEMENTARY</span>
-                    </div>
-
-                    <div class="cr-body">
-                        <h3 class="cr-name">Arts Exploration</h3>
-
-                        <div class="cr-rating">
-                            <span class="cr-stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            <span class="cr-score">4 / 5</span>
-                        </div>
-
-                        <p class="cr-text">
-                            Encourages creativity &amp; self-expression through drawing, painting &amp; crafting.
-                        </p>
-
-                        <div class="cr-meta">
-                            <span>18 Students</span><span class="cr-dot">|</span>
-                            <span>12 Lessons</span><span class="cr-dot">|</span>
-                            <span>6 Months</span>
-                        </div>
-
-                        <div class="cr-line"></div>
-
-                        <div class="cr-teacherRow">
-                            <div class="cr-teacher">
-                                <span class="cr-avatar"><i class="fa-regular fa-user"></i></span>
-                                <span>Marie Elliott</span>
-                            </div>
-                            <div class="cr-price">$7.50</div>
-                        </div>
-
-                        <a class="cr-cta" href="#">Course Detail <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-
-        <!-- dots bottom -->
-        <div class="cr-dots" aria-hidden="true">
-            <span></span><span></span><span class="is-active"></span><span></span><span></span>
         </div>
 
     </div>
@@ -968,20 +928,19 @@
             <img src="assets/image/online-study-03-400x635.jpg" alt="Students in classroom">
         </div>
 
-        <!-- Central Section - Text Content -->
         <div class="cf-center-panel">
             <div class="cf-content">
                 <div class="cf-shape-bg">
                     <img src="assets/image/shape-04.svg" alt="" aria-hidden="true">
                 </div>
-                
+
                 <div class="cf-text-content">
                     <div class="cf-headline">THE CLASSROOM OF THE FUTURE</div>
-                    <h2 class="cf-title">
-                        <span class="cf-title-line">Online</span>
-                        <span class="cf-title-line">learning that</span>
-                        <span class="cf-title-line">suits your</span>
-                        <span class="cf-title-line">lifestyle</span>
+                    <h2 class="cf-title" id="animated-title">
+                        <span class="cf-title-line" data-text="Online">Online</span>
+                        <span class="cf-title-line" data-text="learning that">learning that</span>
+                        <span class="cf-title-line" data-text="suits your">suits your</span>
+                        <span class="cf-title-line" data-text="lifestyle">lifestyle</span>
                     </h2>
                     <p class="cf-description">
                         Our virtual classrooms<br>
@@ -1193,5 +1152,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/split-type"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </html>
