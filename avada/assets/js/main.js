@@ -261,3 +261,179 @@ document.addEventListener("DOMContentLoaded", () => {
 
     els.forEach(el => io.observe(el));
 });
+
+// ==================== CLASSROOM TITLE ANIMATION ====================
+document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const crTitle = document.querySelector('.js-cr-title');
+    if (!crTitle) return;
+
+    // 1. Cắt heading thành từng chữ
+    const split = new SplitType(crTitle, {
+        types: 'words, chars',
+        tagName: 'span'
+    });
+
+    const chars = split.chars;  // mảng tất cả ký tự
+    const total = chars.length;
+
+    // Đảm bảo tất cả bắt đầu ở trạng thái xám
+    chars.forEach(ch => ch.classList.remove('is-active'));
+
+    // 2. ScrollTrigger bám theo cuộn - giống hệt who-title
+    ScrollTrigger.create({
+        trigger: '.classroom',   // section chứa heading
+        start: 'top 75%',         // khi top section nằm ở 75% viewport
+        end: 'top 20%',           // khi top section lên 20% viewport
+        scrub: true,              // bám theo vị trí scroll
+
+        onUpdate(self) {
+            const progress = self.progress;          // 0 -> 1
+            const activeCount = Math.round(progress * total);
+
+            chars.forEach((ch, i) => {
+                if (i < activeCount) {
+                    ch.classList.add('is-active');
+                } else {
+                    ch.classList.remove('is-active');
+                }
+            });
+        }
+    });
+});
+
+// ==================== EVENTS TITLE ANIMATION ====================
+document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const eventsTitle = document.querySelector('.js-events-title');
+    if (!eventsTitle) return;
+
+    // 1. Cắt heading thành từng chữ
+    const split = new SplitType(eventsTitle, {
+        types: 'words, chars',
+        tagName: 'span'
+    });
+
+    const chars = split.chars;  // mảng tất cả ký tự
+    const total = chars.length;
+
+    // Đảm bảo tất cả bắt đầu ở trạng thái xám
+    chars.forEach(ch => ch.classList.remove('is-active'));
+
+    // 2. ScrollTrigger bám theo cuộn - giống hệt who-title
+    ScrollTrigger.create({
+        trigger: '.events',   // section chứa heading
+        start: 'top 75%',         // khi top section nằm ở 75% viewport
+        end: 'top 20%',           // khi top section lên 20% viewport
+        scrub: true,              // bám theo vị trí scroll
+
+        onUpdate(self) {
+            const progress = self.progress;          // 0 -> 1
+            const activeCount = Math.round(progress * total);
+
+            chars.forEach((ch, i) => {
+                if (i < activeCount) {
+                    ch.classList.add('is-active');
+                } else {
+                    ch.classList.remove('is-active');
+                }
+            });
+        }
+    });
+});
+
+const grid = document.querySelector(".cr-grid");
+const btnPrev = document.querySelector(".cr-nav-prev");
+const btnNext = document.querySelector(".cr-nav-next");
+const dots = document.querySelectorAll(".cr-dots span");
+const floatIcon = document.querySelector(".cr-float-nav");
+
+/* -------------------------------
+   DRAG TO SCROLL
+--------------------------------*/
+let isDown = false;
+let startX;
+let scrollLeft;
+
+grid.addEventListener("mousedown", e => {
+    isDown = true;
+    startX = e.pageX - grid.offsetLeft;
+    scrollLeft = grid.scrollLeft;
+    grid.classList.add("dragging");
+});
+
+grid.addEventListener("mouseleave", () => {
+    isDown = false;
+    grid.classList.remove("dragging");
+});
+
+grid.addEventListener("mouseup", () => {
+    isDown = false;
+    grid.classList.remove("dragging");
+});
+
+grid.addEventListener("mousemove", e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - grid.offsetLeft;
+    const walk = (x - startX) * 1.3;
+    grid.scrollLeft = scrollLeft - walk;
+});
+
+/* -------------------------------
+   BUTTON NAVIGATION
+--------------------------------*/
+btnNext.addEventListener("click", () => {
+    grid.scrollBy({ left: 330, behavior: "smooth" });
+});
+btnPrev.addEventListener("click", () => {
+    grid.scrollBy({ left: -330, behavior: "smooth" });
+});
+
+
+
+// ==================== NEWS TITLE ANIMATION ====================
+document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const newsTitle = document.querySelector('.js-news-title');
+    if (!newsTitle) return;
+
+    // 1. Cắt heading thành từng chữ
+    const split = new SplitType(newsTitle, {
+        types: 'words, chars',
+        tagName: 'span'
+    });
+
+    const chars = split.chars;  // mảng tất cả ký tự
+    const total = chars.length;
+
+    // Đảm bảo tất cả bắt đầu ở trạng thái xám
+    chars.forEach(ch => ch.classList.remove('is-active'));
+
+    // 2. ScrollTrigger bám theo cuộn - giống hệt who-title
+    ScrollTrigger.create({
+        trigger: '.news',   // section chứa heading
+        start: 'top 75%',         // khi top section nằm ở 75% viewport
+        end: 'top 20%',           // khi top section lên 20% viewport
+        scrub: true,              // bám theo vị trí scroll
+
+        onUpdate(self) {
+            const progress = self.progress;          // 0 -> 1
+            const activeCount = Math.round(progress * total);
+
+            chars.forEach((ch, i) => {
+                if (i < activeCount) {
+                    ch.classList.add('is-active');
+                } else {
+                    ch.classList.remove('is-active');
+                }
+            });
+        }
+    });
+});
+
+// ClassRoom
+
