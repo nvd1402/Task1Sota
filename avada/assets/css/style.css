@@ -1417,6 +1417,32 @@ a {
     line-height:1.2;
     margin-bottom:24px;
     color:#fff;
+    perspective: 800px;
+    transform-style: preserve-3d;
+}
+.ex-title .ex-line{
+    display:inline-block;
+}
+.ex-title .word,
+.ex-title .ex-word{
+    display:inline-block;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    transition: transform 0.45s ease, opacity 0.45s ease;
+}
+.ex-title .word.is-active,
+.ex-title .ex-word.is-active{
+    transform: rotateX(0deg);
+    opacity:1;
+}
+.ex-title .word{
+    /* giữ tương thích markup sẵn có */
+}
+.ex-title .ex-char{
+    display:inline-block;
+    transform-origin: center center;
 }
 .ex-text{
     color:rgba(255,255,255,.7);

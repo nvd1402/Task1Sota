@@ -140,6 +140,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     })();
 
+    // ---------- Flip từng chữ "A new learning experience..." ----------
+    (function setupExTitleFlip() {
+        const title = safeQuery('.ex-title');
+        if (!title || !window.ScrollTrigger || !window.gsap) return;
+
+        // Nếu builder đã có span.word thì dùng luôn; nếu không thì tự bọc thành word
+        let words = Array.from(title.querySelectorAll('.word'));
+        if (!words.length) {
+            const originalHTML = title.innerHTML;
+            const lines = originalHTML.split('<br');
+            title.innerHTML = '';
+            lines.forEach((lineHTML, lineIndex) => {
+                const lineText = lineHTML.replace(/<[^>]*>/g, '');
+                const lineContainer = document.createElement('span');
+                lineContainer.className = 'ex-line';
+                lineText.split(/(\s+)/).forEach(token => {
+                    if (!token) return;
+                    if (/^\s+$/.test(token)) {
+                        lineContainer.appendChild(document.createTextNode(token));
+                        return;
+                    }
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'ex-word';
+                    wordSpan.textContent = token;
+                    lineContainer.appendChild(wordSpan);
+                    words.push(wordSpan);
+                });
+                title.appendChild(lineContainer);
+                if (lineIndex === 0) {
+                    const br = document.createElement('br');
+                    title.appendChild(br);
+                }
+            });
+        } else {
+            // chuẩn hóa class để CSS dùng chung
+            words.forEach(w => w.classList.add('ex-word'));
+        }
+
+        // trạng thái ban đầu: úp xuống, mờ (theo cụm từ, không chéo)
+        words.forEach(w => {
+            // từ trên cao, úp xuống (không nghiêng Z, không chiều sâu)
+            w.style.transform = 'translateY(-50px) rotateX(-90deg)';
+            w.style.opacity = '0';
+            w.style.display = 'inline-block';
+        });
+
+        // Từ nghiêng (Z) + úp (X) -> lật xuống + hạ vị trí theo cuộn
+        ScrollTrigger.create({
+            trigger: title,
+            start: 'top 80%',
+            end: 'top 20%',
+            scrub: true,
+            onUpdate(self) {
+                const total = words.length;
+                const progress = self.progress * total;
+                words.forEach((w, i) => {
+                    const local = Math.min(1, Math.max(0, progress - i * 0.3));
+                    const opacity = Math.max(0, Math.min(1, local * 1.2));
+                    const ty = -50 + (50 * local);      // từ -50px xuống 0
+                    const rx = -90 + (90 * local);      // từ úp -90 về 0
+                    w.style.transform = `translateY(${ty}px) rotateX(${rx}deg)`;
+                    w.style.opacity = opacity.toString();
+                    w.classList.toggle('is-active', local >= 1);
+                });
+            },
+            onLeave() {
+                words.forEach(w => {
+                    w.style.transform = 'translateY(0px) rotateX(0deg)';
+                    w.style.opacity = '1';
+                    w.classList.add('is-active');
+                });
+            },
+            onLeaveBack() {
+                words.forEach(w => {
+                    w.style.transform = 'translateY(-50px) rotateX(-90deg)';
+                    w.style.opacity = '0';
+                    w.classList.remove('is-active');
+                });
+            }
+        });
+    })();
     // ---------- Event cards overlap effect (with guards) ----------
     (function setupEventCards() {
         const cards = safeQueryAll('.event-card');
