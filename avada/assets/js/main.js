@@ -41,16 +41,57 @@ document.addEventListener('DOMContentLoaded', () => {
         const split = new SplitType(el, { types: 'words, chars', tagName: 'span' });
         const chars = split.chars || [];
         const total = chars.length;
-        chars.forEach(ch => ch.classList.remove('is-active'));
+
+        const setCharFill = (ch, fillRatio) => {
+            const clamped = Math.max(0, Math.min(1, fillRatio));
+            if (clamped === 0) {
+                ch.style.backgroundImage = '';
+                ch.style.color = '#e0e0e0';
+                ch.style.webkitBackgroundClip = '';
+                ch.style.backgroundClip = '';
+                ch.classList.remove('is-active');
+                return;
+            }
+            if (clamped === 1) {
+                ch.style.backgroundImage = '';
+                ch.style.color = '#111111';
+                ch.style.webkitBackgroundClip = '';
+                ch.style.backgroundClip = '';
+                ch.classList.add('is-active');
+                return;
+            }
+            // Gradient để đạt hiệu ứng nửa ký tự như mẫu
+            const pct = (clamped * 100).toFixed(2);
+            ch.style.backgroundImage = `linear-gradient(to right, #111111 0%, #111111 ${pct}%, #e0e0e0 ${pct}%, #e0e0e0 100%)`;
+            ch.style.webkitBackgroundClip = 'text';
+            ch.style.backgroundClip = 'text';
+            ch.style.color = 'transparent';
+            ch.classList.remove('is-active');
+        };
+
+        // reset về xám
+        chars.forEach(ch => setCharFill(ch, 0));
 
         ScrollTrigger.create(Object.assign({
             trigger: triggerSelector,
-            start: 'top 75%',
-            end: 'top 20%',
+            start: 'top 80%',
+            end: 'bottom top', // kéo dài khoảng cuộn để dễ hoàn thành
             scrub: true,
             onUpdate(self) {
-                const activeCount = Math.round(self.progress * total);
-                chars.forEach((ch, i) => ch.classList.toggle('is-active', i < activeCount));
+                // Tô theo tỉ lệ nhỏ của từng ký tự (có thể dừng ở nửa ký tự)
+                const progress = self.progress * total;
+                chars.forEach((ch, i) => {
+                    const local = Math.min(1, Math.max(0, progress - i)); // 0->1 cho từng ký tự
+                    setCharFill(ch, local);
+                });
+            },
+            onLeave() {
+                // Khi cuộn qua hẳn, tất cả ký tự đậm
+                chars.forEach(ch => setCharFill(ch, 1));
+            },
+            onLeaveBack() {
+                // Khi cuộn ngược, trả về xám
+                chars.forEach(ch => setCharFill(ch, 0));
             }
         }, options));
     };
