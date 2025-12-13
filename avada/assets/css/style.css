@@ -815,12 +815,15 @@ a {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-
     margin: 18px auto 0;
     font-size: 17px;
     color: #2d3ecf;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
+}
+
+.learn-more:hover {
+    text-decoration: none;
 }
 
 /* Center image */
@@ -867,16 +870,17 @@ a {
 
 .banner-title .line {
     display: block;
+    position: relative; /* Để absolute positioning của char hoạt động */
 }
 
-/* canh vị trí 2 dòng như bạn làm */
+/* canh vị trí 2 dòng */
 .banner-title .line-one {
     margin-left: 20px;
     margin-bottom: 40px;
 }
 
 .banner-title .line-two {
-    margin-left: 60px;
+    margin-left: 60px; /* Khi chưa cuộn: Academics cách lề sâu hơn School */
 }
 
 /* từng ký tự */
@@ -884,14 +888,20 @@ a {
     display: inline-block;
     opacity: 0.25;
     font-size: 35px;
-    transform-origin: left bottom;
+    transform-origin: left center;
+    margin-right: 0; /* Bỏ margin-right âm để không làm chữ sát nhau */
     transition: transform 0.25s ease, opacity 0.25s ease;
+    /* Dùng overflow để chữ lớn không đẩy chữ nhỏ */
+    overflow: visible;
+    /* Ngăn chặn ảnh hưởng đến layout bên ngoài */
+    contain: layout style;
+    /* Đảm bảo chữ nhỏ không bị đẩy */
+    vertical-align: top;
 }
 
 .banner-title .char.is-active{
     opacity: 1;
-    transform: scale(1);
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    /* KHÔNG thay đổi margin-right để không đẩy layout */
 }
 /*Line luon song*/
 .school-marquee {
@@ -1271,8 +1281,7 @@ a {
     font-weight: 600;
     font-size: 17px;
     color: #1d28b0;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1284,6 +1293,7 @@ a {
 
 .event-card-link:hover {
     color: #0e1580;
+    text-decoration: none;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -2616,12 +2626,16 @@ a {
     font-size: 36px;
     font-weight: 700;
     line-height: 1.2;
-    color: #ffffff;
     margin: 20px 0;
 }
 
 .motto-word{
     display: block;
+    background: linear-gradient(to right, #ffffff 0%, #a0a0ff 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .footer-social{

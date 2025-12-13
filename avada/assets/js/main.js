@@ -1,10 +1,8 @@
-// refactored-main.js
 document.addEventListener('DOMContentLoaded', () => {
-    // ---------- Helpers ----------
     const safeQuery = (sel, ctx = document) => ctx.querySelector(sel);
     const safeQueryAll = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-    // ---------- CTA button hover text ----------
+    // CTA button hover text
     (function setupCta() {
         const ctaBtn = safeQuery('#ctaBtn');
         const btnText = ctaBtn ? ctaBtn.querySelector('.btn-text') : null;
@@ -17,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctaBtn.addEventListener('mouseleave', () => btnText.textContent = defaultText);
     })();
 
-    // ---------- Parallax for hero shape ----------
+    // Parallax for hero shape
     (function setupParallax() {
         const heroShape = safeQuery('.hero-shape');
         if (!heroShape) return;
@@ -29,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     })();
 
-    // ---------- GSAP + SplitType title animation helper ----------
+    // GSAP + SplitType title animation helper
     if (window.gsap && window.ScrollTrigger && window.SplitType) {
         gsap.registerPlugin(ScrollTrigger);
     }
@@ -60,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ch.classList.add('is-active');
                 return;
             }
-            // Gradient để đạt hiệu ứng nửa ký tự như mẫu
             const pct = (clamped * 100).toFixed(2);
             ch.style.backgroundImage = `linear-gradient(to right, #111111 0%, #111111 ${pct}%, #e0e0e0 ${pct}%, #e0e0e0 100%)`;
             ch.style.webkitBackgroundClip = 'text';
@@ -69,83 +66,180 @@ document.addEventListener('DOMContentLoaded', () => {
             ch.classList.remove('is-active');
         };
 
-        // reset về xám
         chars.forEach(ch => setCharFill(ch, 0));
 
         ScrollTrigger.create(Object.assign({
             trigger: triggerSelector,
             start: 'top 80%',
-            end: 'bottom top', // kéo dài khoảng cuộn để dễ hoàn thành
+            end: 'bottom top',
             scrub: true,
             onUpdate(self) {
-                // Tô theo tỉ lệ nhỏ của từng ký tự (có thể dừng ở nửa ký tự)
                 const progress = self.progress * total;
                 chars.forEach((ch, i) => {
-                    const local = Math.min(1, Math.max(0, progress - i)); // 0->1 cho từng ký tự
+                    const local = Math.min(1, Math.max(0, progress - i));
                     setCharFill(ch, local);
                 });
             },
             onLeave() {
-                // Khi cuộn qua hẳn, tất cả ký tự đậm
                 chars.forEach(ch => setCharFill(ch, 1));
             },
             onLeaveBack() {
-                // Khi cuộn ngược, trả về xám
                 chars.forEach(ch => setCharFill(ch, 0));
             }
         }, options));
     };
 
-    // Create for multiple headings
     createTitleSplitScroll('.who-title', '.who-we-are');
     createTitleSplitScroll('.js-cr-title', '.classroom');
     createTitleSplitScroll('.js-events-title', '.events');
     createTitleSplitScroll('.js-news-title', '.news');
 
-    // ---------- "Cuon chu shool academy" (multi-line) ----------
+    // School Academics scroll animation
     (function setupJsGsapTitle() {
         const title = safeQuery('.js-gsap-title');
         if (!title || !window.ScrollTrigger || !window.gsap) return;
 
         const lineNodes = title.querySelectorAll('.line');
-        const linesChars = [];
+        const lines = Array.from(lineNodes);
 
-        lineNodes.forEach(line => {
+        lines.forEach(line => {
             const text = line.textContent || '';
             line.innerHTML = '';
-            const chars = [];
-            text.split('').forEach(ch => {
+
+            text.split('').forEach(char => {
+                const wrapper = document.createElement('span');
+                wrapper.className = 'char-wrapper';
+                wrapper.style.display = 'inline-block';
+                wrapper.style.position = 'relative';
+                
                 const span = document.createElement('span');
                 span.className = 'char';
-                span.textContent = ch;
-                line.appendChild(span);
-                chars.push(span);
+
+                if (char === ' ') {
+                    span.classList.add('space');
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = char;
+                }
+
+                wrapper.appendChild(span);
+                line.appendChild(wrapper);
             });
-            linesChars.push(chars);
+        });
+
+        const alignmentOffset = -40;
+        
+        lines.forEach((line, lineIndex) => {
+            const wrappers = Array.from(line.querySelectorAll('.char-wrapper'));
+            const chars = Array.from(line.querySelectorAll('.char'));
+
+            wrappers.forEach((wrapper, idx) => {
+                const char = chars[idx];
+                requestAnimationFrame(() => {
+                    const rect = wrapper.getBoundingClientRect();
+                    wrapper.dataset.initialWidth = rect.width.toString();
+                });
+                
+                gsap.set(wrapper, {
+                    marginRight: '-0.1em',
+                    verticalAlign: 'top'
+                });
+            });
+
+            gsap.set(chars, {
+                scale: 0.8,
+                color: 'rgba(255, 255, 255, 0.4)',
+                x: 0,
+                y: 0,
+                letterSpacing: '0.1em',
+                force3D: true,
+                transformOrigin: "left center",
+                display: "inline-block",
+                position: "relative",
+                zIndex: 1
+            });
+
+            if (lineIndex === 1) {
+                chars.forEach(char => {
+                    char.dataset.alignmentX = alignmentOffset.toString();
+                });
+            }
+
+            const spaces = line.querySelectorAll('.char.space');
+            gsap.set(spaces, { width: '1.2em' });
         });
 
         ScrollTrigger.create({
             trigger: title,
-            start: 'top 75%',
+            start: 'top 80%',
             end: 'top 20%',
-            scrub: true,
+            scrub: 3,
+
             onUpdate(self) {
                 const progress = self.progress;
-                linesChars.forEach(chars => {
-                    const total = chars.length;
-                    const activeCount = Math.floor(progress * total);
-                    chars.forEach((ch, i) => ch.classList.toggle('is-active', i < activeCount));
+
+                lines.forEach((line, lineIndex) => {
+                    const chars = Array.from(line.querySelectorAll('.char'));
+                    const totalChars = chars.length;
+
+                    chars.forEach((char, idx) => {
+                        const animationRange = 0.2;
+                        
+                        let charProgress;
+                        if (totalChars > 1) {
+                            if (idx === totalChars - 1) {
+                                charProgress = 1 - animationRange;
+                            } else {
+                                charProgress = (idx / (totalChars - 1)) * (1 - animationRange);
+                            }
+                        } else {
+                            charProgress = 0;
+                        }
+                        
+                        const charStart = charProgress;
+                        
+                        let relativeProgress = 0;
+                        if (progress >= charStart) {
+                            relativeProgress = Math.min((progress - charStart) / animationRange, 1);
+                        }
+                        
+                        const targetX = lineIndex === 1 ? parseFloat(char.dataset.alignmentX || alignmentOffset) : 0;
+                        
+                        const currentScale = 0.8 + (relativeProgress * (1.8 - 0.8));
+                        const currentOpacity = 0.4 + (relativeProgress * (1 - 0.4));
+                        const currentColor = relativeProgress > 0.5 ? '#ffffff' : 'rgba(255, 255, 255, 0.4)';
+                        const currentLetterSpacing = (0.1 + relativeProgress * 0.7) + 'em';
+                        const currentX = relativeProgress * targetX;
+                        const currentZIndex = relativeProgress > 0.1 ? 10 : 1;
+                        
+                        gsap.set(char, {
+                            scale: currentScale,
+                            color: currentColor,
+                            x: currentX,
+                            y: 0,
+                            letterSpacing: currentLetterSpacing,
+                            opacity: currentOpacity,
+                            zIndex: currentZIndex,
+                            marginRight: '-0.1em'
+                        });
+                        
+                        if (char.classList.contains('space')) {
+                            const spaceWidth = 1.2 + (relativeProgress * (2 - 1.2)) + 'em';
+                            gsap.set(char, {
+                                width: spaceWidth
+                            });
+                        }
+                    });
                 });
             }
         });
     })();
 
-    // ---------- Flip từng chữ "A new learning experience..." ----------
+    // Flip animation for "A new learning experience..."
     (function setupExTitleFlip() {
         const title = safeQuery('.ex-title');
         if (!title || !window.ScrollTrigger || !window.gsap) return;
 
-        // Nếu builder đã có span.word thì dùng luôn; nếu không thì tự bọc thành word
         let words = Array.from(title.querySelectorAll('.word'));
         if (!words.length) {
             const originalHTML = title.innerHTML;
@@ -174,19 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         } else {
-            // chuẩn hóa class để CSS dùng chung
             words.forEach(w => w.classList.add('ex-word'));
         }
 
-        // trạng thái ban đầu: úp xuống, mờ (theo cụm từ, không chéo)
         words.forEach(w => {
-            // từ trên cao, úp xuống (không nghiêng Z, không chiều sâu)
             w.style.transform = 'translateY(-50px) rotateX(-90deg)';
             w.style.opacity = '0';
             w.style.display = 'inline-block';
         });
 
-        // Từ nghiêng (Z) + úp (X) -> lật xuống + hạ vị trí theo cuộn
         ScrollTrigger.create({
             trigger: title,
             start: 'top 80%',
@@ -198,8 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 words.forEach((w, i) => {
                     const local = Math.min(1, Math.max(0, progress - i * 0.3));
                     const opacity = Math.max(0, Math.min(1, local * 1.2));
-                    const ty = -50 + (50 * local);      // từ -50px xuống 0
-                    const rx = -90 + (90 * local);      // từ úp -90 về 0
+                    const ty = -50 + (50 * local);
+                    const rx = -90 + (90 * local);
                     w.style.transform = `translateY(${ty}px) rotateX(${rx}deg)`;
                     w.style.opacity = opacity.toString();
                     w.classList.toggle('is-active', local >= 1);
@@ -221,7 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     })();
-    // ---------- Event cards overlap effect (with guards) ----------
+
+    // Event cards overlap effect
     (function setupEventCards() {
         const cards = safeQueryAll('.event-card');
         const container = safeQuery('.events-cards-container');
@@ -236,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const cardHeight = rect.height;
                 const cardTop = rect.top;
 
-                // defaults
                 let blurAmount = 0, opacity = 1, scale = 1;
 
                 const nextCard = cards[index + 1];
@@ -267,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     })();
 
-    // ---------- Courses numbers animation (fix suffix k/m) ----------
+    // Courses numbers animation
     function parseDisplay(text) {
         const raw = (text || '').trim();
         if (!raw) return null;
@@ -283,8 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const decimals = (numStr.split('.')[1] || '').length;
 
         return {
-            num: num * multiplier,   // numeric target (already multiplied)
-            displaySuffix: suffix,   // keep original suffix for display if needed
+            num: num * multiplier,
+            displaySuffix: suffix,
             hasPlus,
             decimals
         };
@@ -338,14 +428,13 @@ document.addEventListener('DOMContentLoaded', () => {
         els.forEach(el => io.observe(el));
     })();
 
-// ---------- Classroom animated-title (multi-line with GSAP) ----------
+    // Classroom animated-title
     (function setupAnimatedTitle() {
         const title = safeQuery('#animated-title');
         if (!title || !window.gsap || !window.ScrollTrigger) return;
 
         const lines = Array.from(title.querySelectorAll('.cf-title-line'));
 
-        // Tạo span từng ký tự
         lines.forEach(line => {
             const text = line.getAttribute('data-text') || '';
             line.innerHTML = '';
@@ -365,26 +454,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Trạng thái ban đầu
         lines.forEach(line => {
             const chars = Array.from(line.querySelectorAll('.char'));
 
-            // ⭐ Giữ chữ nhỏ đứng yên – không nhảy khi scale
             gsap.set(chars, {
                 scale: 0.7,
                 color: '#d0d0d0',
                 x: 0,
                 force3D: true,
                 transformOrigin: "50% 50%",
-                display: "inline-block" // ⭐ cực quan trọng
+                display: "inline-block"
             });
 
-            // Width ban đầu của space
             const spaces = line.querySelectorAll('.char.space');
             gsap.set(spaces, { width: '1.2em' });
         });
 
-        // ScrollTrigger
         ScrollTrigger.create({
             trigger: title,
             start: 'top 75%',
@@ -401,7 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     chars.forEach((char, idx) => {
                         const charProgress = idx / totalChars;
 
-                        // Animate IN — phóng to như bong bóng
                         if (progress >= charProgress && !char.classList.contains('animated')) {
                             char.classList.add('animated');
 
@@ -413,7 +497,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 force3D: true
                             });
 
-                            // Space thu nhỏ (1.2em → 0.3em)
                             if (char.classList.contains('space')) {
                                 gsap.to(char, {
                                     width: '0.3em',
@@ -423,7 +506,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
 
-                        // Animate OUT — thu nhỏ lại nhưng GIỮ NGUYÊN VỊ TRÍ
                         else if (progress < charProgress && char.classList.contains('animated')) {
                             char.classList.remove('animated');
 
@@ -435,7 +517,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 force3D: true
                             });
 
-                            // Space trở lại width cũ (0.3em → 1.2em)
                             if (char.classList.contains('space')) {
                                 gsap.to(char, {
                                     width: '1.2em',
@@ -451,9 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })();
 
-
-
-    // ---------- Grid drag to scroll (mouse + touch) ----------
+    // Grid drag to scroll
     (function setupGridDrag() {
         const grid = safeQuery('.cr-grid');
         const btnPrev = safeQuery('.cr-nav-prev');
@@ -478,12 +557,10 @@ document.addEventListener('DOMContentLoaded', () => {
             grid.scrollLeft = scrollLeft - walk;
         };
 
-        // mouse
         grid.addEventListener('mousedown', e => startDrag(e.pageX));
         window.addEventListener('mouseup', endDrag);
         grid.addEventListener('mousemove', e => moveDrag(e.pageX));
 
-        // touch
         grid.addEventListener('touchstart', e => startDrag(e.touches[0].pageX), { passive: true });
         grid.addEventListener('touchend', endDrag);
         grid.addEventListener('touchmove', e => moveDrag(e.touches[0].pageX, false), { passive: false });
@@ -492,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnPrev) btnPrev.addEventListener('click', () => grid.scrollBy({ left: -330, behavior: 'smooth' }));
     })();
 
-/// ---------- Classroom Carousel (Swiper) ----------
+    // Classroom Carousel (Swiper)
     (function setupClassroomCarousel() {
         const wrapper  = safeQuery('.cr-cards-wrapper');
         const swiperEl = safeQuery('.cr-swiper');
@@ -516,7 +593,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // ---------- Drag Control (Up & Down quyết định trái / phải) ----------
         let isDown = false;
         let startX = 0;
         let startY = 0;
@@ -534,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const moveX = e.clientX - startX;
             const moveY = e.clientY - startY;
 
-            deltaX = moveX * 0.4; // ghì nhẹ cũng thấy card đi
+            deltaX = moveX * 0.4;
 
             swiper.setTranslate(swiper.getTranslate() + deltaX);
         });
@@ -545,7 +621,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const endY = e.clientY - startY;
 
-            // Vuốt lên -> sang phải | Vuốt xuống -> sang trái
             if (Math.abs(endY) > 40) {
                 if (endY < 0) {
                     swiper.slideNext();
@@ -553,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     swiper.slidePrev();
                 }
             } else {
-                swiper.slideTo(swiper.activeIndex); // trả lại vị trí
+                swiper.slideTo(swiper.activeIndex);
             }
         }
 
@@ -562,10 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     })();
 
-
-
-
-// ---------- Classroom Floating Icon Follow Mouse + Drag Direction ----------
+    // Classroom Floating Icon Follow Mouse
     (function setupClassroomFloatIcon() {
         const wrapper   = safeQuery('.cr-cards-wrapper');
         const floatIcon = safeQuery('.cr-float-icon');
@@ -621,6 +693,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     })();
-
 
 });
