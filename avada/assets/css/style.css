@@ -1131,8 +1131,15 @@ a {
     }
     
     .banner-content {
-        left: 50px;
-        top: 70px;
+        position: relative;
+        left: auto;
+        top: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
     }
     
     .banner-title {
@@ -1264,6 +1271,7 @@ a {
         margin: 0;
         transform: translateY(0) !important;
         box-sizing: border-box;
+        text-align: center;
     }
     
     .program-box.light-green,
@@ -1275,22 +1283,27 @@ a {
     .program-heading {
         font-size: 20px;
         line-height: 1.3;
+        text-align: center;
     }
     
     .program-grade {
         font-size: 13px;
         margin: 6px 0 12px;
+        text-align: center;
     }
     
     .program-desc {
         font-size: 13px;
         max-width: 100%;
         line-height: 1.6;
+        text-align: center;
     }
     
     .learn-more {
         font-size: 14px;
         margin-top: 10px;
+        text-align: center;
+        display: inline-block;
     }
     
     .program-img img {
@@ -1320,6 +1333,7 @@ a {
         max-width: 100%;
         transform: translateY(0) !important;
         box-sizing: border-box;
+        text-align: center;
     }
     
     .program-box.light-green,
@@ -1409,19 +1423,24 @@ a {
     
     .program-heading {
         font-size: 18px;
+        text-align: center;
     }
     
     .program-grade {
         font-size: 12px;
         margin: 5px 0 10px;
+        text-align: center;
     }
     
     .program-desc {
         font-size: 12px;
+        text-align: center;
     }
     
     .learn-more {
         font-size: 13px;
+        text-align: center;
+        display: inline-block;
     }
     
     .program-img img {
