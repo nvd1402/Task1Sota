@@ -648,9 +648,8 @@
                 </div>
 
                 <div class="cr-text-column">
-                    <h2 class="cr-title">
-                        <span class="cr-title-bold">Explore Our</span>
-                        <span class="cr-title-fade">Courses</span>
+                    <h2 class="cr-title js-cr-title">
+                        Explore Our Courses
                     </h2>
                     <p class="cr-desc">
                         Subjects that prepare you for tomorrow: All while connecting with a global network of learners.
@@ -995,11 +994,11 @@
                 <div class="news-card-image">
                     <img src="assets/image/blog-traditional-learning.jpg" alt="Traditional vs Online">
                     <div class="news-card-overlay">
-                        <div class="news-card-meta">Career Development — 2 min</div>
                         <h3 class="news-card-title">
                             <span class="news-title-line">Traditional vs Online:</span>
                             <span class="news-title-line">Which school suits your</span>
                             <span class="news-title-line">style</span>
+                            <div class="news-card-meta"><span class="meta-category">Career Development</span> — <span class="meta-time">2 min</span></div>
                         </h3>
                     </div>
                 </div>
@@ -1026,19 +1025,19 @@
         <!-- Additional Articles -->
         <div class="news-grid">
             <article class="news-card-small">
-                <div class="news-card-meta-small">Spotlight News — September 12, 2025</div>
+                <div class="news-card-meta-small"><span class="meta-category-small">Spotlight News</span> — <span class="meta-date-small">September 12, 2025</span></div>
                 <h4 class="news-card-title-small">Creating the perfect study space for online learning</h4>
                 <p class="news-card-desc-small">Enim feugiat eu pharetra join carturient wastibulum id sem convallis velits.</p>
             </article>
 
             <article class="news-card-small">
-                <div class="news-card-meta-small">Career Development — September 12, 2025</div>
+                <div class="news-card-meta-small"><span class="meta-category-small">Career Development</span> — <span class="meta-date-small">September 12, 2025</span></div>
                 <h4 class="news-card-title-small">How online education can transform your career path</h4>
                 <p class="news-card-desc-small">Bestibulum id sem convallis velit enim ante feugiat eu pharetra carturient.</p>
             </article>
 
             <article class="news-card-small">
-                <div class="news-card-meta-small">Guides &amp; Resources — August 22, 2025</div>
+                <div class="news-card-meta-small"><span class="meta-category-small">Guides &amp; Resources</span> — <span class="meta-date-small">August 22, 2025</span></div>
                 <h4 class="news-card-title-small">Stay motivated in online education: A student's guide</h4>
                 <p class="news-card-desc-small">sagittis molestie nec ipsum. Morbi velit placerat dapibus libero pretium.</p>
             </article>
@@ -1078,8 +1077,22 @@
 
             <!-- Middle Column - Get in Touch -->
             <div class="footer-center">
-                <h3 class="footer-section-title">Get in Touch</h3>
-                <p class="footer-address">678 Main Street, Queens, NY 11435, United States</p>
+                <div class="footer-top-section">
+                    <div class="footer-top-left">
+                        <h3 class="footer-section-title">Get in Touch</h3>
+                        <p class="footer-address">678 Main Street, Queens, NY 11435, United States</p>
+                    </div>
+                    <div class="footer-top-right">
+                        <div class="footer-contact">
+                            <p class="footer-contact-item">
+                                <strong>Toll Free:</strong> <a href="tel:+18005555555">+1 800 555 5555</a>
+                            </p>
+                            <p class="footer-contact-item">
+                                <a href="mailto:contact@avada-company.com">contact@avada-company.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="footer-divider"></div>
 
@@ -1118,14 +1131,6 @@
 
             <!-- Right Column - Contact -->
             <div class="footer-right">
-                <div class="footer-contact">
-                    <p class="footer-contact-item">
-                        <strong>Toll Free:</strong> <a href="tel:+18005555555">+1 800 555 5555</a>
-                    </p>
-                    <p class="footer-contact-item">
-                        <a href="mailto:contact@avada-company.com">contact@avada-company.com</a>
-                    </p>
-                </div>
             </div>
         </div>
 
@@ -1133,7 +1138,10 @@
         <div class="footer-bottom">
             <div class="footer-bottom-content">
                 <p class="footer-copyright">
-                    © 2012 - 2025 • Avada is a Website Builder for WordPress and eCommerce All Rights Reserved • Developed by ThemeFusion
+                    © 2012 - 2025 • <strong>Avada</strong> is a <strong>Website Builder</strong> for <strong>WordPress</strong> and <strong>eCommerce</strong>
+                </p>
+                <p class="footer-copyright">
+                    All Rights Reserved • Developed by <strong>ThemeFusion</strong>
                 </p>
                 <div class="footer-bottom-links">
                     <a href="#">Privacy Policy</a>
@@ -1147,7 +1155,38 @@
         </div>
     </div>
 </footer>
+
+    <!-- Sidebar Action Buttons -->
+    <div class="sidebar-actions">
+        <!-- Prebuilts Button -->
+        <a href="#" class="action-btn prebuilts-btn">
+            <div class="icon-wrapper">
+                <i class="icon-main fa-solid fa-box"></i>
+                <i class="icon-secondary fa-solid fa-box"></i>
+            </div>
+            <span class="btn-label">Prebuilts</span>
+        </a>
+
+        <!-- Buy Now Button -->
+        <a href="#" class="action-btn buy-now-btn">
+            <div class="icon-wrapper">
+                <i class="icon-main fa-solid fa-cart-shopping"></i>
+                <i class="icon-secondary fa-solid fa-cart-shopping"></i>
+            </div>
+            <span class="btn-label">Buy Now</span>
+        </a>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <span class="scroll-progress-bar progress-top"></span>
+        <span class="scroll-progress-bar progress-right"></span>
+        <span class="scroll-progress-bar progress-bottom"></span>
+        <span class="scroll-progress-bar progress-left"></span>
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
 </body>
+
 <script src="assets/js/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>

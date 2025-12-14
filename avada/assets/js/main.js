@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ScrollTrigger.create(Object.assign({
             trigger: triggerSelector,
             start: 'top 80%',
-            end: 'bottom top',
+            end: 'top 20%',
             scrub: true,
             onUpdate(self) {
                 const progress = self.progress * total;
@@ -472,58 +472,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ScrollTrigger.create({
             trigger: title,
-            start: 'top 75%',
-            end: 'bottom 35%',
-            scrub: 3,
+            start: 'top 85%',
+            end: 'bottom 15%',
+            scrub: 0.8,
+            anticipatePin: 1,
 
             onUpdate(self) {
                 const progress = self.progress;
 
-                lines.forEach(line => {
+                lines.forEach((line, lineIndex) => {
                     const chars = Array.from(line.querySelectorAll('.char'));
                     const totalChars = chars.length;
 
                     chars.forEach((char, idx) => {
-                        const charProgress = idx / totalChars;
-
-                        if (progress >= charProgress && !char.classList.contains('animated')) {
-                            char.classList.add('animated');
-
-                            gsap.to(char, {
-                                scale: 1,
-                                color: '#2a2a2a',
-                                duration: 0.4,
-                                ease: 'power1.out',
-                                force3D: true
-                            });
-
-                            if (char.classList.contains('space')) {
-                                gsap.to(char, {
-                                    width: '0.3em',
-                                    duration: 0.35,
-                                    ease: 'power1.out'
-                                });
-                            }
+                        // Tính toán progress với overlap cao hơn để mượt hơn
+                        const charStart = (idx / totalChars) * 0.6; // tăng overlap
+                        const charEnd = charStart + 0.4; // tăng range
+                        
+                        let localProgress = 0;
+                        if (progress >= charStart && progress <= charEnd) {
+                            localProgress = (progress - charStart) / 0.4;
+                        } else if (progress > charEnd) {
+                            localProgress = 1;
                         }
+                        
+                        // Custom cubic bezier easing (giống ease-out-expo) - cực mượt
+                        const eased = localProgress === 1 ? 1 : 1 - Math.pow(2, -10 * localProgress);
+                        
+                        // Interpolate values với range lớn hơn
+                        const currentScale = 0.65 + (eased * 0.35); // 0.65 -> 1
+                        const currentOpacity = 0.25 + (eased * 0.75); // 0.25 -> 1
+                        
+                        // Color interpolation mượt hơn
+                        const startR = 208, startG = 208, startB = 208; // #d0d0d0
+                        const endR = 42, endG = 42, endB = 42; // #2a2a2a
+                        
+                        const r = Math.round(startR + (eased * (endR - startR)));
+                        const g = Math.round(startG + (eased * (endG - startG)));
+                        const b = Math.round(startB + (eased * (endB - startB)));
+                        const currentColor = `rgb(${r}, ${g}, ${b})`;
+                        
+                        // Thêm slight rotation và y-transform cho smooth hơn
+                        const currentY = (1 - eased) * 5; // từ 5px xuống 0
+                        const currentRotate = (1 - eased) * 2; // từ 2deg về 0
+                        
+                        gsap.set(char, {
+                            scale: currentScale,
+                            color: currentColor,
+                            opacity: currentOpacity,
+                            y: currentY,
+                            rotation: currentRotate,
+                            force3D: true,
+                            transformOrigin: '50% 50%'
+                        });
 
-                        else if (progress < charProgress && char.classList.contains('animated')) {
-                            char.classList.remove('animated');
-
-                            gsap.to(char, {
-                                scale: 0.7,
-                                color: '#d0d0d0',
-                                duration: 0.4,
-                                ease: 'power1.in',
-                                force3D: true
+                        if (char.classList.contains('space')) {
+                            const spaceWidth = 1.2 - (eased * 0.9); // 1.2em -> 0.3em
+                            gsap.set(char, {
+                                width: spaceWidth + 'em'
                             });
-
-                            if (char.classList.contains('space')) {
-                                gsap.to(char, {
-                                    width: '1.2em',
-                                    duration: 0.35,
-                                    ease: 'power1.in'
-                                });
-                            }
                         }
                     });
                 });
@@ -577,21 +584,124 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!wrapper || !swiperEl || !window.Swiper) return;
 
         const swiper = new Swiper(swiperEl, {
-            slidesPerView: 4,
+            slidesPerView: 'auto',
             spaceBetween: 28,
             grabCursor: true,
-            speed: 500,
+            speed: 600,
+            freeMode: {
+                enabled: true,
+                sticky: true,
+                momentum: true,
+                momentumRatio: 0.5,
+                momentumVelocityRatio: 0.5,
+                minimumVelocity: 0.02
+            },
+            mousewheel: {
+                enabled: true,
+                forceToAxis: true,
+                sensitivity: 1.5,
+                releaseOnEdges: true,
+                invert: false
+            },
+            resistance: true,
+            resistanceRatio: 0.5,
             pagination: {
                 el: '.cr-pagination',
-                clickable: true
+                clickable: true,
+                dynamicBullets: true
             },
             breakpoints: {
-                1200: { slidesPerView: 4 },
-                992:  { slidesPerView: 3 },
-                768:  { slidesPerView: 2 },
-                0:    { slidesPerView: 1 }
+                0: { 
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    centeredSlides: false
+                },
+                680: { 
+                    slidesPerView: 1.5,
+                    spaceBetween: 24,
+                    centeredSlides: false
+                },
+                968: { 
+                    slidesPerView: 2,
+                    spaceBetween: 24
+                },
+                1200: { 
+                    slidesPerView: 3,
+                    spaceBetween: 28
+                },
+                1400: { 
+                    slidesPerView: 4,
+                    spaceBetween: 28
+                }
             }
         });
+        
+        // Thêm hỗ trợ cuộn ngang bằng wheel event cho mượt mà hơn
+        let rafId = null;
+        let targetTranslate = null;
+        
+        wrapper.addEventListener('wheel', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const isHovering = e.clientX >= rect.left && e.clientX <= rect.right && 
+                               e.clientY >= rect.top && e.clientY <= rect.bottom;
+            
+            if (!isHovering) return;
+            
+            // Tính toán delta - ưu tiên cuộn ngang, nếu không có thì dùng cuộn dọc
+            let delta = 0;
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                delta = e.deltaX;
+            } else if (Math.abs(e.deltaY) > 0) {
+                delta = e.deltaY;
+            } else {
+                return;
+            }
+            
+            e.preventDefault();
+            
+            const currentTranslate = swiper.getTranslate();
+            const maxTranslate = swiper.maxTranslate();
+            const minTranslate = swiper.minTranslate();
+            
+            // Hệ số sensitivity để điều chỉnh tốc độ cuộn
+            const sensitivity = 0.5;
+            const newTarget = currentTranslate - (delta * sensitivity);
+            
+            // Cập nhật target translate
+            targetTranslate = Math.max(minTranslate, Math.min(maxTranslate, newTarget));
+            
+            // Hủy animation frame cũ nếu có
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+            }
+            
+            // Tạo smooth animation với requestAnimationFrame
+            const startTranslate = currentTranslate;
+            const distance = targetTranslate - startTranslate;
+            const startTime = performance.now();
+            const duration = 200; // 200ms để mượt và responsive
+            
+            function smoothScroll(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function (ease-out-cubic) để mượt hơn
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                
+                const currentPos = startTranslate + (distance * easeOut);
+                swiper.setTranslate(currentPos);
+                
+                // Nếu chưa đến target và còn đang cuộn, tiếp tục animate
+                if (progress < 1 && Math.abs(swiper.getTranslate() - targetTranslate) > 0.5) {
+                    rafId = requestAnimationFrame(smoothScroll);
+                } else {
+                    swiper.setTranslate(targetTranslate); // Đảm bảo đạt đúng target
+                    rafId = null;
+                }
+            }
+            
+            rafId = requestAnimationFrame(smoothScroll);
+        }, { passive: false });
 
         let isDown = false;
         let startX = 0;
@@ -692,6 +802,229 @@ document.addEventListener('DOMContentLoaded', () => {
             isHold = false;
         });
 
+    })();
+
+    // Scroll to Top Button
+    (function setupScrollToTop() {
+        const scrollBtn = safeQuery('#scrollToTop');
+        const progressTop = scrollBtn ? scrollBtn.querySelector('.progress-top') : null;
+        const progressRight = scrollBtn ? scrollBtn.querySelector('.progress-right') : null;
+        const progressBottom = scrollBtn ? scrollBtn.querySelector('.progress-bottom') : null;
+        const progressLeft = scrollBtn ? scrollBtn.querySelector('.progress-left') : null;
+        
+        if (!scrollBtn) {
+            console.warn('Scroll to top button not found');
+            return;
+        }
+        
+        if (!progressTop || !progressRight || !progressBottom || !progressLeft) {
+            console.warn('Progress bars not found', { progressTop, progressRight, progressBottom, progressLeft });
+            return;
+        }
+        
+        // Kiểm tra nếu là mobile thì ẩn nút
+        function checkMobileAndHide() {
+            if (window.innerWidth <= 768) {
+                scrollBtn.style.display = 'none';
+            } else {
+                // Đảm bảo nút có style đúng
+                scrollBtn.style.position = 'fixed';
+                scrollBtn.style.bottom = '30px';
+                scrollBtn.style.right = '30px';
+                scrollBtn.style.left = 'auto';
+                scrollBtn.style.top = 'auto';
+                scrollBtn.style.zIndex = '100000';
+                scrollBtn.style.width = '48px';
+                scrollBtn.style.height = '48px';
+                // Không set background ở đây để CSS có thể override
+                scrollBtn.style.border = '1px solid rgba(138, 138, 138, 0.3)';
+                scrollBtn.style.borderRadius = '8px';
+                scrollBtn.style.display = 'flex';
+                scrollBtn.style.alignItems = 'center';
+                scrollBtn.style.justifyContent = 'center';
+                scrollBtn.style.overflow = 'hidden';
+            }
+        }
+        
+        // Kiểm tra lần đầu
+        checkMobileAndHide();
+        
+        // Kiểm tra khi resize
+        window.addEventListener('resize', checkMobileAndHide);
+        
+        // Đảm bảo icon có màu trắng
+        const icon = scrollBtn.querySelector('i');
+        if (icon) {
+            icon.style.color = '#ffffff';
+        }
+        
+        // Khởi tạo style cho các cạnh progress bar
+        [progressTop, progressRight, progressBottom, progressLeft].forEach(bar => {
+            if (bar) {
+                bar.style.position = 'absolute';
+                bar.style.background = '#27c4e5';
+                bar.style.zIndex = '2';
+                bar.style.transition = 'width 0.1s linear, height 0.1s linear';
+                bar.style.display = 'block';
+                bar.style.visibility = 'visible';
+                bar.style.opacity = '1';
+                bar.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Set vị trí và kích thước ban đầu cho từng cạnh
+        if (progressTop) {
+            progressTop.style.top = '0';
+            progressTop.style.left = '0';
+            progressTop.style.width = '0%';
+            progressTop.style.height = '4px';
+            progressTop.style.borderRadius = '8px 0 0 0';
+        }
+        if (progressRight) {
+            progressRight.style.top = '0';
+            progressRight.style.right = '0';
+            progressRight.style.width = '4px';
+            progressRight.style.height = '0%';
+            progressRight.style.borderRadius = '0 8px 0 0';
+        }
+        if (progressBottom) {
+            progressBottom.style.bottom = '0';
+            progressBottom.style.right = '0';
+            progressBottom.style.width = '0%';
+            progressBottom.style.height = '4px';
+            progressBottom.style.borderRadius = '0 0 8px 0';
+        }
+        if (progressLeft) {
+            progressLeft.style.bottom = '0';
+            progressLeft.style.left = '0';
+            progressLeft.style.width = '4px';
+            progressLeft.style.height = '0%';
+            progressLeft.style.borderRadius = '0 0 0 8px';
+        }
+        
+        // Theo dõi hướng scroll
+        let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        let isScrollingDown = true;
+        
+        function updateScrollProgress() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollableHeight = documentHeight - windowHeight;
+            
+            // Tính toán progress từ 0 đến 1
+            const scrollProgress = scrollableHeight > 0 ? Math.min(scrollTop / scrollableHeight, 1) : 0;
+            
+            // Tính toán progress cho từng cạnh (chu vi = 4 cạnh)
+            // Cạnh trên: 0% - 25%
+            // Cạnh phải: 25% - 50%
+            // Cạnh dưới: 50% - 75%
+            // Cạnh trái: 75% - 100%
+            const totalProgress = scrollProgress * 4; // 0 đến 4
+            
+            let topWidth = 0, rightHeight = 0, bottomWidth = 0, leftHeight = 0;
+            
+            if (totalProgress <= 1) {
+                // Chỉ cạnh trên
+                topWidth = totalProgress * 100;
+            } else if (totalProgress <= 2) {
+                // Cạnh trên đầy + cạnh phải
+                topWidth = 100;
+                rightHeight = (totalProgress - 1) * 100;
+            } else if (totalProgress <= 3) {
+                // Cạnh trên + phải đầy + cạnh dưới
+                topWidth = 100;
+                rightHeight = 100;
+                bottomWidth = (totalProgress - 2) * 100;
+            } else {
+                // Tất cả cạnh đầy
+                topWidth = 100;
+                rightHeight = 100;
+                bottomWidth = 100;
+                leftHeight = (totalProgress - 3) * 100;
+            }
+            
+            // Cập nhật trực tiếp vào từng element progress bar
+            if (progressTop) {
+                progressTop.style.width = topWidth + '%';
+            }
+            if (progressRight) {
+                progressRight.style.height = rightHeight + '%';
+            }
+            if (progressBottom) {
+                progressBottom.style.width = bottomWidth + '%';
+            }
+            if (progressLeft) {
+                progressLeft.style.height = leftHeight + '%';
+            }
+            
+            // Xác định hướng scroll
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            isScrollingDown = currentScrollTop > lastScrollTop;
+            lastScrollTop = currentScrollTop;
+            
+            // Kiểm tra nếu là mobile thì luôn ẩn
+            if (window.innerWidth <= 768) {
+                scrollBtn.style.display = 'none';
+                return;
+            }
+            
+            // Hiển thị/ẩn nút:
+            // - Ẩn khi ở đầu trang (scrollTop <= 10)
+            // - Chỉ hiển thị khi cuộn xuống và đã scroll > 100px
+            // - Ẩn khi đang scroll lên
+            if (scrollTop <= 10) {
+                // Ở đầu trang - ẩn nút
+                scrollBtn.classList.remove('show');
+                scrollBtn.style.opacity = '0';
+                scrollBtn.style.visibility = 'hidden';
+                scrollBtn.style.pointerEvents = 'none';
+            } else if (isScrollingDown && scrollTop > 100) {
+                // Đang scroll xuống và đã scroll > 100px - hiển thị nút
+                scrollBtn.classList.add('show');
+                scrollBtn.style.opacity = '0.9';
+                scrollBtn.style.visibility = 'visible';
+                scrollBtn.style.pointerEvents = 'auto';
+            } else if (!isScrollingDown) {
+                // Đang scroll lên - ẩn nút
+                scrollBtn.classList.remove('show');
+                scrollBtn.style.opacity = '0';
+                scrollBtn.style.visibility = 'hidden';
+                scrollBtn.style.pointerEvents = 'none';
+            }
+        }
+        
+        // Xử lý hover để đổi màu nền
+        scrollBtn.addEventListener('mouseenter', () => {
+            if (scrollBtn.classList.contains('show')) {
+                scrollBtn.style.background = '#27c4e5';
+                scrollBtn.style.borderColor = '#27c4e5';
+            }
+        });
+        
+        scrollBtn.addEventListener('mouseleave', () => {
+            if (scrollBtn.classList.contains('show')) {
+                scrollBtn.style.background = '#575656e4';
+                scrollBtn.style.borderColor = 'rgba(138, 138, 138, 0.3)';
+            }
+        });
+        
+        // Xử lý click để scroll lên đầu
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Cập nhật khi scroll
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
+        
+        // Đảm bảo nút không hiển thị khi load trang
+        scrollBtn.classList.remove('show');
+        
+        // Cập nhật lần đầu - đảm bảo nút ẩn khi ở đầu trang
+        updateScrollProgress();
     })();
 
 });
